@@ -1,8 +1,10 @@
 # InteractiveBrokers
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/interactive_brokers`. To experiment with that code, run `bin/console` for an interactive prompt.
+This allow to communicate with Interactive Brokers (further IB) trough HTTP.
+This gem contains 2 parts:
 
-TODO: Delete this and the text above, and describe your gem
+* Server, which require JRuby 9.2.13.0+ (might work with earlier versions, but did not tested)
+* Client part extensions (It should work with Ruby 2.2+, but I'm not willing to support the legacy)
 
 ## Installation
 

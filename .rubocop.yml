@@ -1,0 +1,6 @@
+inherit_from: .rubocop_todo.yml
+require: rubocop-rspec
+
+Style/Documentation:
+  Description: 'Document classes and non-namespace modules.'
+  Enabled: false
