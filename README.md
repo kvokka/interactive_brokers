@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/kvokka/interactive_brokers.svg?style=svg&circle-token=851335638907651b4fbdf0d5dabff056600067c0)](https://circleci.com/gh/kvokka/interactive_brokers)
+
 # InteractiveBrokers
 
 This allow to communicate with Interactive Brokers (further IB) trough HTTP.
