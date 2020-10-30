@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Interactive Brokers API access trough HTTP.'
   spec.description   = 'Simple way to interact with Interactive brokers via HTTP.'
-  spec.homepage      = "https://github.com/kvokka/interactive_brokers"
+  spec.homepage      = 'https://github.com/kvokka/interactive_brokers'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.5.7')
 
@@ -29,9 +29,9 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'rspec', '~> 3.10.0'
-  spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'amazing_print', '>= 1.2.0'
   spec.add_development_dependency 'bundler', '>= 1.17'
   spec.add_development_dependency 'commander', '>= 4.5.0', '< 5.0'
+  spec.add_development_dependency 'rspec', '~> 3.10.0'
+  spec.add_development_dependency 'rspec_junit_formatter'
 end
