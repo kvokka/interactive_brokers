@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.5.7')
 
-  # spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
+  spec.metadata['allowed_push_host'] = "http://private_use_only.stub"
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/kvokka/interactive_brokers'
@@ -29,8 +29,9 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_development_dependency 'rake', '>= 13.0'
   spec.add_development_dependency 'amazing_print', '>= 1.2.0'
-  spec.add_development_dependency 'bundler', '>= 1.17'
+  spec.add_development_dependency 'bundler', '>= 1.17', '< 3.0'
   spec.add_development_dependency 'commander', '>= 4.5.0', '< 5.0'
   spec.add_development_dependency 'rspec', '~> 3.10.0'
   spec.add_development_dependency 'rspec_junit_formatter'
