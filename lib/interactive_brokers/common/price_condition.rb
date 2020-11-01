@@ -7,11 +7,6 @@
 module InteractiveBrokers
   module Common
     PriceCondition = Struct.new(:price, :trigger_method, keyword_init: true) do
-      def initialize(price: nil, trigger_method: nil)
-        self.price = price
-        self.trigger_method = trigger_method
-      end
-
       def to_ib
         ib_object = Java::ComIbClient::PriceCondition.new
         ib_object.price(price).to_java unless price.nil?

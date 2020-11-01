@@ -7,12 +7,6 @@
 module InteractiveBrokers
   module Common
     HistoricalTick = Struct.new(:time, :price, :size, keyword_init: true) do
-      def initialize(time: nil, price: nil, size: nil)
-        self.time = time
-        self.price = price
-        self.size = size
-      end
-
       def to_ib
         ib_object = Java::ComIbClient::HistoricalTick.new
         ib_object.time(time).to_java unless time.nil?

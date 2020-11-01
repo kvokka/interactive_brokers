@@ -7,17 +7,6 @@
 module InteractiveBrokers
   module Common
     Bar = Struct.new(:time, :open, :high, :low, :close, :volume, :count, :wap, keyword_init: true) do
-      def initialize(time: nil, open: nil, high: nil, low: nil, close: nil, volume: nil, count: nil, wap: nil)
-        self.time = time
-        self.open = open
-        self.high = high
-        self.low = low
-        self.close = close
-        self.volume = volume
-        self.count = count
-        self.wap = wap
-      end
-
       def to_ib
         ib_object = Java::ComIbClient::Bar.new
         ib_object.time(time).to_java unless time.nil?

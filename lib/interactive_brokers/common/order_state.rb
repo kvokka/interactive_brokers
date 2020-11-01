@@ -7,26 +7,6 @@
 module InteractiveBrokers
   module Common
     OrderState = Struct.new(:status, :init_margin_before, :maint_margin_before, :equity_with_loan_before, :init_margin_change, :maint_margin_change, :equity_with_loan_change, :init_margin_after, :maint_margin_after, :equity_with_loan_after, :commission, :min_commission, :max_commission, :commission_currency, :warning_text, :completed_time, :completed_status, keyword_init: true) do
-      def initialize(status: nil, init_margin_before: nil, maint_margin_before: nil, equity_with_loan_before: nil, init_margin_change: nil, maint_margin_change: nil, equity_with_loan_change: nil, init_margin_after: nil, maint_margin_after: nil, equity_with_loan_after: nil, commission: nil, min_commission: nil, max_commission: nil, commission_currency: nil, warning_text: nil, completed_time: nil, completed_status: nil)
-        self.status = status
-        self.init_margin_before = init_margin_before
-        self.maint_margin_before = maint_margin_before
-        self.equity_with_loan_before = equity_with_loan_before
-        self.init_margin_change = init_margin_change
-        self.maint_margin_change = maint_margin_change
-        self.equity_with_loan_change = equity_with_loan_change
-        self.init_margin_after = init_margin_after
-        self.maint_margin_after = maint_margin_after
-        self.equity_with_loan_after = equity_with_loan_after
-        self.commission = commission
-        self.min_commission = min_commission
-        self.max_commission = max_commission
-        self.commission_currency = commission_currency
-        self.warning_text = warning_text
-        self.completed_time = completed_time
-        self.completed_status = completed_status
-      end
-
       def to_ib
         ib_object = Java::ComIbClient::OrderState.new
         ib_object.status(status).to_java unless status.nil?

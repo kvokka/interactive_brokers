@@ -7,17 +7,6 @@
 module InteractiveBrokers
   module Common
     ComboLeg = Struct.new(:conid, :ratio, :action, :exchange, :open_close, :short_sale_slot, :designated_location, :exempt_code, keyword_init: true) do
-      def initialize(conid: nil, ratio: nil, action: nil, exchange: nil, open_close: nil, short_sale_slot: nil, designated_location: nil, exempt_code: nil)
-        self.conid = conid
-        self.ratio = ratio
-        self.action = action
-        self.exchange = exchange
-        self.open_close = open_close
-        self.short_sale_slot = short_sale_slot
-        self.designated_location = designated_location
-        self.exempt_code = exempt_code
-      end
-
       def to_ib
         ib_object = Java::ComIbClient::ComboLeg.new
         ib_object.conid(conid).to_java unless conid.nil?

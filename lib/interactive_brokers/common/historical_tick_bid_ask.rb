@@ -7,15 +7,6 @@
 module InteractiveBrokers
   module Common
     HistoricalTickBidAsk = Struct.new(:time, :tick_attrib_bid_ask, :price_bid, :price_ask, :size_bid, :size_ask, keyword_init: true) do
-      def initialize(time: nil, tick_attrib_bid_ask: nil, price_bid: nil, price_ask: nil, size_bid: nil, size_ask: nil)
-        self.time = time
-        self.tick_attrib_bid_ask = tick_attrib_bid_ask
-        self.price_bid = price_bid
-        self.price_ask = price_ask
-        self.size_bid = size_bid
-        self.size_ask = size_ask
-      end
-
       def to_ib
         ib_object = Java::ComIbClient::HistoricalTickBidAsk.new
         ib_object.time(time).to_java unless time.nil?

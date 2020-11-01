@@ -75,7 +75,6 @@ module InteractiveBrokers
         #{generate_namespace_open}
 
         #{generate_class_declaration}
-          #{generate_constructor}
           #{generate_to_ib_method}
         end
 
@@ -98,24 +97,6 @@ module InteractiveBrokers
 
         <<-RUBY
           #{ib_class.name} = Struct.new(#{struct_init_properties}) do
-        RUBY
-      end
-
-      def generate_constructor
-        constructor_declarations = ib_class.zipped_ruby_and_java_properties
-                                           .collect do |ruby_property, _java_field|
-          "#{ruby_property}: nil"
-        end
-
-        assignment_statements = ib_class.ruby_property_names.collect do |ruby_property|
-          <<-RUBY
-        self.#{ruby_property} = #{ruby_property}
-          RUBY
-        end
-        <<-RUBY
-        def initialize(#{constructor_declarations.join(', ')})
-          #{assignment_statements.join('')}
-        end
         RUBY
       end
 

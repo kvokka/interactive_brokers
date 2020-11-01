@@ -7,12 +7,6 @@
 module InteractiveBrokers
   module Common
     DeltaNeutralContract = Struct.new(:conid, :delta, :price, keyword_init: true) do
-      def initialize(conid: nil, delta: nil, price: nil)
-        self.conid = conid
-        self.delta = delta
-        self.price = price
-      end
-
       def to_ib
         ib_object = Java::ComIbClient::DeltaNeutralContract.new
         ib_object.conid(conid).to_java unless conid.nil?
