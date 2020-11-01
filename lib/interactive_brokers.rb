@@ -5,7 +5,7 @@ require "logger"
 
 require "active_support/core_ext/string/inflections"
 
-Dir["./lib/interactive_brokers/common/**/*.rb"].each { |file| require file }
+Dir["./lib/interactive_brokers/common/**/*.rb"].sort.each { |file| require file }
 
 module InteractiveBrokers
   class Error < StandardError; end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 java_import "java.util.ArrayList"
 
 module IbRubyProxy

@@ -18,6 +18,7 @@ AllCops:
 
 Metrics/BlockLength:
   Exclude:
+    - 'interactive_brokers.gemspec'
     - 'spec/**/*'
 
 Security/Eval:
