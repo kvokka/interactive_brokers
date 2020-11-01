@@ -1,4 +1,6 @@
-inherit_from: .rubocop_todo.yml
+inherit_from:
+  - .rubocop_todo.yml
+  - .rubocop_excludes_for_generator.yml
 require: rubocop-rspec
 
 Style/Documentation:
@@ -8,5 +10,32 @@ Style/Documentation:
 RSpec/ExpectActual:
   Enabled: false
 
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
 AllCops:
   TargetRubyVersion: 2.5
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Security/Eval:
+  Exclude:
+    - 'spec/interactive_brokers/generators/api_class_source_generator_spec.rb'
+    - 'spec/interactive_brokers/generators/class_source_generator_spec.rb'
+
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/interactive_brokers/generators/api_class_source_generator_spec.rb'
+    - 'spec/interactive_brokers/generators/class_source_generator_spec.rb'
+
+RSpec/BeforeAfterAll:
+  Exclude:
+    - 'spec/interactive_brokers/generators/api_class_source_generator_spec.rb'
+    - 'spec/interactive_brokers/generators/class_source_generator_spec.rb'
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - 'spec/interactive_brokers/generators/api_class_source_generator_spec.rb'
+    - 'spec/interactive_brokers/generators/class_source_generator_spec.rb'

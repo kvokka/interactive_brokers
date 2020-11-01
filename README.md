@@ -3,10 +3,25 @@
 # InteractiveBrokers
 
 This allow to communicate with Interactive Brokers (further IB) trough HTTP.
-This gem contains 2 parts:
+This gem contains 3 parts:
 
-* Server, which require JRuby 9.2.13.0+ (might work with earlier versions, but did not tested)
-* Client part extensions (It should work with Ruby 2.2+, but I'm not willing to support the legacy)
+* Server application (proxy) will communicate with IB and serve clients requests.
+* Code generators
+* Client part extensions, which should help to generate correct request on the client 
+side with out any knowledge of server side internals
+
+Request life cycle looks like:
+
+client => server application => IB Gateway (async wait) => responce to the client
+
+All long-processing requests have some Id field (requestId, orderId or something like it, will 
+name it just ID later on). Presence of the ide will determine the request type.
+1. Requests where ID is mot mandatory are treated as fast (or the server side responce 
+does not matter), so they are **not** concurrent by the design of IB Gateway
+2. Requests with ID will gather all the responses in the context of this ID.
+
+It is the client's responsibility to provide uniq ID. Unfortunately, embedded IB function
+`NextValidId` will not support concurrency correctly with external API calls.
 
 ## Installation
 
@@ -26,7 +41,22 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Server application
+
+### Code generators (IB API Upgrade)
+
+Required for IB API upgrade. For the upgrade you should:
+
+0. `bundle install`
+1. Replace `vendor/TwsApi.jar` with the required version
+2. Re-generate classes with `exe/generate_ruby_classes`
+3. Run specs
+4. Update documentation
+
+### Client extensions
+
+Includes the Ruby mirror of JRuby classes, which allows to easy create request parameters.
+All methods & parameters names mirror [official API doc](https://interactivebrokers.github.io/tws-api/index.html).
 
 ## Development
 

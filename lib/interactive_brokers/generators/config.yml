@@ -1,0 +1,18 @@
+# List from supported classes as they are named in IB API
+# More info: https://interactivebrokers.github.io/tws-api/annotated.html
+classes:
+  - ComboLeg
+  - DeltaNeutralContract
+  - Contract
+  - Order
+  - OrderState
+  - HistoricalTickLast
+  - TickAttribLast
+  - Bar
+  - HistoricalTick
+  - TickAttribBidAsk
+  - HistoricalTickBidAsk
+  - ContractDetails
+  - ScannerSubscription
+  - PriceCondition
+  - TimeCondition
