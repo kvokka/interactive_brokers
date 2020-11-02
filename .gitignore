@@ -6,6 +6,8 @@
 /pkg/
 /spec/reports/
 /tmp/
+/app/log/*
+!app/log/.keep
 
 Gemfile.lock
 *.gem

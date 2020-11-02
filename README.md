@@ -43,6 +43,14 @@ Or install it yourself as:
 
 ### Server application
 
+#### ENV variables
+
+* PORT = 3333 , default puma port
+* RACK_ENV = development
+* MAX_THREAD_COUNT = 5
+* ROOT_PATH, project root
+* APP_PATH, sinatra application root
+
 ### Code generators (IB API Upgrade)
 
 Required for IB API upgrade. For the upgrade you should:

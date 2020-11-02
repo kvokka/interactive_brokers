@@ -3,14 +3,22 @@
 require "bundler/setup"
 require "interactive_brokers"
 require "impersonator"
+require "rack/test"
 require_relative "../vendor/TwsApi.jar"
 
-$LOAD_PATH << "../app"
+ENV["RACK_ENV"] = "test"
 
-Dir["#{__dir__}/../app/core_ext/**/*.rb"].sort.each { |file| require file }
-Dir["#{__dir__}/../app/java_ext/**/*.rb"].sort.each { |file| require file }
+require_relative "../app/app"
 
 RSpec.configure do |config|
+  config.include Rack::Test::Methods
+
+  config.filter_run :focus
+  config.run_all_when_everything_filtered = true
+  config.disable_monkey_patching!
+  config.warnings = true
+  config.default_formatter = "doc" if config.files_to_run.one?
+
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
 

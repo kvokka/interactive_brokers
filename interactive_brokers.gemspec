@@ -33,7 +33,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "amazing_print", ">= 1.2.0"
   spec.add_development_dependency "bundler", ">= 1.17", "< 3.0"
   spec.add_development_dependency "commander", ">= 4.5.0", "< 5.0"
+  spec.add_development_dependency "puma", "~> 5.0.0"
+  spec.add_development_dependency "rack-test", "~> 1.1.0"
   spec.add_development_dependency "rake", ">= 13.0"
-  spec.add_development_dependency "rspec", ">= 3.10.0"
+  spec.add_development_dependency "rspec", ">= 3.10.0", "< 4.0"
   spec.add_development_dependency "rspec_junit_formatter"
+  spec.add_development_dependency "sinatra", "~> 2.1.0"
 end
