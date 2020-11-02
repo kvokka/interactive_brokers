@@ -23,6 +23,86 @@ does not matter), so they are **not** concurrent by the design of IB Gateway
 It is the client's responsibility to provide uniq ID. Unfortunately, embedded IB function
 `NextValidId` will not support concurrency correctly with external API calls.
 
+## Current progress
+
+*NOTE*: All functions naming is from Java official API doc. URI paths for corresponding
+functions will be the same.
+
+### Global functions
+
+* [ ] reqOpenOrders
+* [ ] reqAccountUpdates
+* [ ] reqIds
+* [ ] reqNewsBulletins
+* [ ] cancelNewsBulletins
+* [ ] setServerLogLevel
+* [ ] reqAutoOpenOrders
+* [ ] reqAllOpenOrders
+* [ ] reqManagedAccts
+* [ ] reqScannerParameters
+* [ ] reqCurrentTime
+* [ ] reqMarketDataType
+* [ ] reqGlobalCancel
+* [ ] reqPositions
+* [ ] cancelPositions
+* [ ] reqFamilyCodes
+* [ ] reqMktDepthExchanges
+* [ ] reqNewsProviders
+* [ ] reqMarketRule
+* [ ] reqCompletedOrders
+
+### Functions with ID
+
+* [ ] reqMktData
+* [ ] cancelMktData
+* [ ] placeOrder
+* [ ] cancelOrder
+* [ ] reqExecutions
+* [ ] reqContractDetails
+* [ ] reqMktDepth
+* [ ] cancelMktDepth
+* [ ] reqHistoricalData
+* [ ] exerciseOptions
+* [ ] cancelHistoricalData
+* [ ] reqRealTimeBars
+* [ ] cancelRealTimeBars
+* [ ] cancelScannerSubscription
+* [ ] reqScannerSubscription
+* [ ] reqFundamentalData
+* [ ] cancelFundamentalData
+* [ ] calculateImpliedVolatility
+* [ ] calculateOptionPrice
+* [ ] cancelCalculateImpliedVolatility
+* [ ] cancelCalculateOptionPrice
+* [ ] reqAccountSummary
+* [ ] cancelAccountSummary
+* [ ] queryDisplayGroups
+* [ ] subscribeToGroupEvents
+* [ ] updateDisplayGroup
+* [ ] unsubscribeFromGroupEvents
+* [ ] reqPositionsMulti
+* [ ] cancelPositionsMulti
+* [ ] reqAccountUpdatesMulti
+* [ ] cancelAccountUpdatesMulti
+* [ ] reqSecDefOptParams
+* [ ] reqSoftDollarTiers
+* [ ] reqMatchingSymbols
+* [ ] reqSmartComponents
+* [ ] reqNewsArticle
+* [ ] reqHistoricalNews
+* [ ] reqHeadTimestamp
+* [ ] cancelHeadTimestamp
+* [ ] reqHistogramData
+* [ ] cancelHistogramData
+* [ ] reqPnL
+* [ ] cancelPnL
+* [ ] reqPnLSingle
+* [ ] cancelPnLSingle
+* [ ] reqHistoricalTicks
+* [ ] reqTickByTickData
+* [ ] cancelTickByTickData
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
