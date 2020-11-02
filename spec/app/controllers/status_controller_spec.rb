@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe "/status", type: :controller do
+RSpec.describe StatusController, type: :controller do
   before { get "/status" }
 
   it { expect(last_response).to be_ok }

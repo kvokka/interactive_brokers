@@ -5,7 +5,7 @@ module RSpec
     module Controllers
       module App
         def app
-          ::App
+          ::APP
         end
       end
     end

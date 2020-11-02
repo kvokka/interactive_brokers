@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class App < Sinatra::Base
+class StatusController < ApplicationController
   get("/status") do
     [200, "OK"]
   end

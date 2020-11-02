@@ -39,4 +39,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", ">= 3.10.0", "< 4.0"
   spec.add_development_dependency "rspec_junit_formatter"
   spec.add_development_dependency "sinatra", "~> 2.1.0"
+  spec.add_development_dependency "sinatra-router", "~> 0.2.4"
 end
