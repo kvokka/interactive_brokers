@@ -10,6 +10,9 @@ Style/Documentation:
 RSpec/ExpectActual:
   Enabled: false
 
+RSpec/NamedSubject:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
@@ -23,7 +26,7 @@ Security/Eval:
 Metrics/BlockLength:
   Exclude:
     - 'interactive_brokers_generator/spec/**/*'
-    - 'interactive_brokers_app/spec/**/*'
+    - 'interactive_brokers_proxy/spec/**/*'
 
 RSpec/BeforeAfterAll:
   Exclude:

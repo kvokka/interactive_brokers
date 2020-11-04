@@ -5,6 +5,8 @@ require "interactive_brokers_common/core_ext"
 require_relative "../../vendor/TwsApi.jar"
 
 require "interactive_brokers_proxy/version"
+require "interactive_brokers_proxy/registry"
+
 require "interactive_brokers_proxy/app/app"
 
 module InteractiveBrokersProxy
