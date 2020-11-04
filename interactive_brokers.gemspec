@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/interactive_brokers/version"
+version = File.read(File.expand_path("VERSION", __dir__)).strip
 
 Gem::Specification.new do |spec|
   spec.name          = "interactive_brokers"
-  spec.version       = InteractiveBrokers::VERSION
+  spec.version       = version
   spec.authors       = ["kvokka"]
   spec.email         = ["kvokka@yahoo.com"]
 
@@ -29,15 +29,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "activesupport", ">= 6.0.0", "< 7.0"
-  spec.add_development_dependency "amazing_print", ">= 1.2.0"
-  spec.add_development_dependency "bundler", ">= 1.17", "< 3.0"
-  spec.add_development_dependency "commander", ">= 4.5.0", "< 5.0"
-  spec.add_development_dependency "puma", "~> 5.0.0"
-  spec.add_development_dependency "rack-test", "~> 1.1.0"
-  spec.add_development_dependency "rake", ">= 13.0"
-  spec.add_development_dependency "rspec", ">= 3.10.0", "< 4.0"
-  spec.add_development_dependency "rspec_junit_formatter"
-  spec.add_development_dependency "sinatra", "~> 2.1.0"
-  spec.add_development_dependency "sinatra-router", "~> 0.2.4"
+  spec.add_dependency "bundler", ">= 1.17", "< 3.0"
+  spec.add_dependency "interactive_brokers_common", version
+  spec.add_dependency "interactive_brokers_generator", version
+  spec.add_dependency "interactive_brokers_proxy", version
 end

@@ -1,51 +1,51 @@
 Style/MethodCallWithoutArgsParentheses:
   Exclude:
-    - 'app/java_ext/**/*'
+    - 'interactive_brokers_proxy/lib/interactive_brokers_proxy/app/java_ext/**/*'
 
 Style/ClassAndModuleChildren:
   Exclude:
-    - 'app/java_ext/**/*'
+    - 'interactive_brokers_proxy/lib/interactive_brokers_proxy/app/java_ext/**/*'
 
 Style/FrozenStringLiteralComment:
   Exclude:
-    - 'app/java_ext/**/*'
+    - 'interactive_brokers_proxy/lib/interactive_brokers_proxy/app/java_ext/**/*'
 
 Metrics/MethodLength:
   Exclude:
-    - 'lib/interactive_brokers/common/**/*'
-    - 'app/java_ext/**/*'
+    - 'interactive_brokers_common/lib/interactive_brokers_common/common/**/*'
+    - 'interactive_brokers_proxy/lib/interactive_brokers_proxy/app/java_ext/**/*'
 
 Layout/LineLength:
   Exclude:
-    - 'lib/interactive_brokers/common/**/*'
-    - 'app/java_ext/**/*'
+    - 'interactive_brokers_common/lib/interactive_brokers_common/common/**/*'
+    - 'interactive_brokers_proxy/lib/interactive_brokers_proxy/app/java_ext/**/*'
 
 Metrics/ParameterLists:
   Exclude:
-    - 'lib/interactive_brokers/common/**/*'
-    - 'app/java_ext/**/*'
+    - 'interactive_brokers_common/lib/interactive_brokers_common/common/**/*'
+    - 'interactive_brokers_proxy/lib/interactive_brokers_proxy/app/java_ext/**/*'
 
 Metrics/AbcSize:
   Exclude:
-    - 'lib/interactive_brokers/common/**/*'
-    - 'app/java_ext/**/*'
+    - 'interactive_brokers_common/lib/interactive_brokers_common/common/**/*'
+    - 'interactive_brokers_proxy/lib/interactive_brokers_proxy/app/java_ext/**/*'
 
 Metrics/ClassLength:
   Exclude:
-    - 'lib/interactive_brokers/common/**/*'
-    - 'app/java_ext/**/*'
+    - 'interactive_brokers_common/lib/interactive_brokers_common/common/**/*'
+    - 'interactive_brokers_proxy/lib/interactive_brokers_proxy/app/java_ext/**/*'
 
 Metrics/ModuleLength:
   Exclude:
-    - 'lib/interactive_brokers/common/**/*'
-    - 'app/java_ext/**/*'
+    - 'interactive_brokers_common/lib/interactive_brokers_common/common/**/*'
+    - 'interactive_brokers_proxy/lib/interactive_brokers_proxy/app/java_ext/**/*'
 
 Metrics/PerceivedComplexity:
   Exclude:
-    - 'lib/interactive_brokers/common/**/*'
-    - 'app/java_ext/**/*'
+    - 'interactive_brokers_common/lib/interactive_brokers_common/common/**/*'
+    - 'interactive_brokers_proxy/lib/interactive_brokers_proxy/app/java_ext/**/*'
 
 Metrics/CyclomaticComplexity:
   Exclude:
-    - 'lib/interactive_brokers/common/**/*'
-    - 'app/java_ext/**/*'
+    - 'interactive_brokers_common/lib/interactive_brokers_common/common/**/*'
+    - 'interactive_brokers_proxy/lib/interactive_brokers_proxy/app/java_ext/**/*'

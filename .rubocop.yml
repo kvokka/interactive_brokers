@@ -16,27 +16,24 @@ Style/StringLiterals:
 AllCops:
   TargetRubyVersion: 2.5
 
-Metrics/BlockLength:
-  Exclude:
-    - 'interactive_brokers.gemspec'
-    - 'spec/**/*'
-
 Security/Eval:
   Exclude:
-    - 'spec/interactive_brokers/generators/api_class_source_generator_spec.rb'
-    - 'spec/interactive_brokers/generators/class_source_generator_spec.rb'
+    - 'interactive_brokers_generator/spec/interactive_brokers_generator/class_source_generator_spec.rb'
 
-RSpec/ExampleLength:
+Metrics/BlockLength:
   Exclude:
-    - 'spec/interactive_brokers/generators/api_class_source_generator_spec.rb'
-    - 'spec/interactive_brokers/generators/class_source_generator_spec.rb'
+    - 'interactive_brokers_generator/spec/**/*'
+    - 'interactive_brokers_app/spec/**/*'
 
 RSpec/BeforeAfterAll:
   Exclude:
-    - 'spec/interactive_brokers/generators/api_class_source_generator_spec.rb'
-    - 'spec/interactive_brokers/generators/class_source_generator_spec.rb'
+    - 'interactive_brokers_generator/spec/interactive_brokers_generator/class_source_generator_spec.rb'
+
+RSpec/ExampleLength:
+  Exclude:
+    - 'interactive_brokers_generator/spec/interactive_brokers_generator/class_source_generator_spec.rb'
+    - 'interactive_brokers_generator/spec/interactive_brokers_generator/class_source_generator_spec.rb'
 
 RSpec/MultipleExpectations:
   Exclude:
-    - 'spec/interactive_brokers/generators/api_class_source_generator_spec.rb'
-    - 'spec/interactive_brokers/generators/class_source_generator_spec.rb'
+   - 'interactive_brokers_generator/spec/interactive_brokers_generator/class_source_generator_spec.rb'

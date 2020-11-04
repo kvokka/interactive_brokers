@@ -3,16 +3,17 @@
 # InteractiveBrokers
 
 This allow to communicate with Interactive Brokers (further IB) trough HTTP.
-This gem contains 3 parts:
+This gem contains 3 gems:
 
-* Server application (proxy) will communicate with IB and serve clients requests.
-* Code generators
-* Client part extensions, which should help to generate correct request on the client 
-side with out any knowledge of server side internals
+* `interactive_brokers_app` - Server application (proxy) which will communicate 
+with IB and serve clients requests.
+* `interactive_brokers_generator` - Code generator for further TWS API upgrades
+* `interactive_brokers_common` - Client part extensions, which should help to 
+make correct request on the client side with out any knowledge of server side internals
 
 Request life cycle looks like:
 
-client => server application => IB Gateway (async wait) => responce to the client
+client => `interactive_brokers_app` => IB Gateway (async wait) => responce to the client
 
 All long-processing requests have some Id field (requestId, orderId or something like it, will 
 name it just ID later on). Presence of the ide will determine the request type.
@@ -119,33 +120,6 @@ Or install it yourself as:
 
     $ gem install interactive_brokers
 
-## Usage
-
-### Server application
-
-#### ENV variables
-
-* PORT = 3333 , default puma port
-* RACK_ENV = development
-* MAX_THREAD_COUNT = 5
-* ROOT_PATH, project root
-* APP_PATH, sinatra application root
-
-### Code generators (IB API Upgrade)
-
-Required for IB API upgrade. For the upgrade you should:
-
-0. `bundle install`
-1. Replace `vendor/TwsApi.jar` with the required version
-2. Re-generate classes with `exe/generate_ruby_classes`
-3. Run specs
-4. Update documentation
-
-### Client extensions
-
-Includes the Ruby mirror of JRuby classes, which allows to easy create request parameters.
-All methods & parameters names mirror [official API doc](https://interactivebrokers.github.io/tws-api/index.html).
-
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -155,7 +129,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/interactive_brokers. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/interactive_brokers/blob/master/CODE_OF_CONDUCT.md).
-
 
 ## License
 

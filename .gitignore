@@ -1,16 +1,9 @@
 /.bundle/
 /.yardoc
 /_yardoc/
-/coverage/
+/*/coverage/
 /doc/
 /pkg/
-/spec/reports/
+/*/spec/reports/
+/*/tmp/
 /tmp/
-/app/log/*
-!app/log/.keep
-
-Gemfile.lock
-*.gem
-
-# rspec failure tracking
-.rspec_status

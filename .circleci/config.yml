@@ -1,6 +1,5 @@
 version: 2.1
 defaults: &defaults
-  working_directory: ~/ib_ruby_proxy
   docker:
     - image: circleci/jruby:9.2.13.0-jdk11-node-browsers-legacy
       environment:
@@ -22,14 +21,40 @@ commands:
             bundle install --jobs=4 --retry=3 --path vendor/bundle
 
 jobs:
-  tests:
+  proxy_tests:
     <<: *defaults
+    working_directory: ~/interactive_brokers/interactive_brokers_proxy
     steps:
       - prepare
       - run:
           name: run tests
           command: |
             mkdir /tmp/test-results
+
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+
+            bundle exec rspec --format progress \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            --tag ~type:performance \
+                            $TEST_FILES
+
+      # collect reports
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+  generator_tests:
+    <<: *defaults
+    working_directory: ~/interactive_brokers/interactive_brokers_generator
+    steps:
+      - prepare
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
 
             bundle exec rspec --format progress \
@@ -46,6 +71,7 @@ jobs:
           destination: test-results
   rubocop:
     <<: *defaults
+    working_directory: ~/interactive_brokers
     steps:
       - prepare
       - run:
@@ -55,5 +81,6 @@ workflows:
   version: 2
   pipeline:
     jobs:
-      - tests
+      - proxy_tests
+      - generator_tests
       - rubocop
