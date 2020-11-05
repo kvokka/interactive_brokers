@@ -19,6 +19,9 @@ Style/StringLiterals:
 AllCops:
   TargetRubyVersion: 2.5
 
+Metrics/CyclomaticComplexity:
+  Max: 10
+
 Security/Eval:
   Exclude:
     - 'interactive_brokers_generator/spec/interactive_brokers_generator/class_source_generator_spec.rb'

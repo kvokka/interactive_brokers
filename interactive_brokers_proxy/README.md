@@ -24,6 +24,7 @@ All the setting can be set with environment variables:
 
 * GATEWAY_HOST = localhost
 * GATEWAY_PORT = 4002
+* GATEWAY_CLIENT_ID = 2
 
 ## License
 
