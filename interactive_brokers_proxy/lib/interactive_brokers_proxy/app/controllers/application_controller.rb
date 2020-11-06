@@ -7,8 +7,8 @@ class ApplicationController < Sinatra::Base
 
   set :environments, %w[test development production]
   set :root,         Pathname.new(__dir__).parent.parent.parent.parent.to_s
-  set :common_registry, InteractiveBrokersProxy::Registry.new(name: "common", key_class: Symbol)
-  set :req_id_registry, InteractiveBrokersProxy::Registry.new(name: "requests by ID", key_class: Integer)
+  set(:common_registry) { InteractiveBrokersProxy.common_registry }
+  set(:req_id_registry) { InteractiveBrokersProxy.req_id_registry }
   set(:gateway_client) { InteractiveBrokersProxy::ProxyService.client }
 
   enable :logging, :dump_errors
