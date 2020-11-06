@@ -4,6 +4,7 @@ ENV["RACK_ENV"] = "test"
 
 require "bundler/setup"
 require "interactive_brokers_generator"
+require "pry"
 
 RSpec.configure do |config|
   config.filter_run :focus

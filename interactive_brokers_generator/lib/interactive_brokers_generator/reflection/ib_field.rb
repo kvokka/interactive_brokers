@@ -17,20 +17,44 @@ module InteractiveBrokersGenerator
       #
       # @return [String]
       def name
-        @name ||= find_name
+        @name = java_field.name.sub(IB_FIELD_PREFIX, "")
       end
 
-      private
+      def ruby_name
+        name.underscore
+      end
 
-      def find_name
-        field_name_without_prefix = java_field.name.sub(IB_FIELD_PREFIX, "")
-        matched_method = ib_class.klass.java_class.declared_instance_methods.find do |method|
-          method.name.underscore == field_name_without_prefix.underscore
+      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/MethodLength
+      def name_with_coercion
+        case value_type = java_field.value_type
+        when "java.lang.String"
+          "String(#{ruby_name})"
+        when "int", "long"
+          "Integer(#{ruby_name})"
+        when "double"
+          "Float(#{ruby_name})"
+        when "boolean", "java.lang.Boolean"
+          "!!#{ruby_name}"
+        when /^com\.ib\.client\./
+          klass = java_field.type.ruby_class.name.demodulize
+          "(#{ruby_name}.is_a?(#{klass}) ? #{ruby_name} : #{klass}.new(#{ruby_name})).to_ib"
+        when "java.util.List"
+          klass = ib_class.list_types[name] || raise("In class #{ib_class.klass} type for List #{name} not found!")
+          "(#{ruby_name}.all?{|e| e.is_a?(#{klass})} ? #{ruby_name} : "\
+          "#{ruby_name}.map{|hash| #{klass}.new(hash) }).to_ib"
+        else
+          raise("Unknown type '#{value_type}' for method #{ib_class.klass.name}##{name} ")
         end
-        raise "No method matching '#{field.name}'?" unless matched_method
-
-        matched_method.name
       end
+      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/MethodLength
+
+      # rubocop:disable Naming/PredicateName
+      def has_setter?
+        ib_class.klass.java_class.declared_instance_methods.map(&:name).map(&:underscore).include? name.underscore
+      end
+      # rubocop:enable Naming/PredicateName
     end
   end
 end

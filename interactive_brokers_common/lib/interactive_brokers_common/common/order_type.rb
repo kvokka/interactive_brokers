@@ -5,10 +5,10 @@
 # ---------------------------------------------
 
 module InteractiveBrokersCommon
-  TimeCondition = Struct.new(:time, keyword_init: true) do
+  OrderType = Struct.new(:api_string, keyword_init: true) do
     def to_ib
-      ib_object = Java::ComIbClient::TimeCondition.new
-      ib_object.time(String(time)).to_java unless time.nil?
+      ib_object = Java::ComIbClient::OrderType.new
+      # Java method 'apiString' does not have setter/getter
 
       ib_object
     end

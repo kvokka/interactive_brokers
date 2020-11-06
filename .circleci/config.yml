@@ -1,5 +1,6 @@
 version: 2.1
 defaults: &defaults
+  working_directory: ~/interactive_brokers
   docker:
     - image: circleci/jruby:9.2.13.0-jdk11-node-browsers-legacy
       environment:
@@ -9,7 +10,11 @@ commands:
     description: "Common preparation steps"
     steps:
       - checkout
-
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run:
           name: install bundler
           command: |
@@ -18,17 +23,22 @@ commands:
       - run:
           name: install dependencies
           command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+            bundle config set path 'vendor/bundle'
+            bundle install --jobs=4 --retry=3
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
 jobs:
   proxy_tests:
     <<: *defaults
-    working_directory: ~/interactive_brokers/interactive_brokers_proxy
     steps:
       - prepare
       - run:
           name: run tests
           command: |
+            cd interactive_brokers_proxy
             mkdir /tmp/test-results
 
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
@@ -47,12 +57,12 @@ jobs:
           destination: test-results
   generator_tests:
     <<: *defaults
-    working_directory: ~/interactive_brokers/interactive_brokers_generator
     steps:
       - prepare
       - run:
           name: run tests
           command: |
+            cd interactive_brokers_generator
             mkdir /tmp/test-results
 
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
@@ -71,7 +81,6 @@ jobs:
           destination: test-results
   rubocop:
     <<: *defaults
-    working_directory: ~/interactive_brokers
     steps:
       - prepare
       - run:

@@ -8,8 +8,8 @@ module InteractiveBrokersCommon
   TickAttribLast = Struct.new(:past_limit, :unreported, keyword_init: true) do
     def to_ib
       ib_object = Java::ComIbClient::TickAttribLast.new
-      ib_object.pastLimit(past_limit).to_java unless past_limit.nil?
-      ib_object.unreported(unreported).to_java unless unreported.nil?
+      ib_object.pastLimit(!!past_limit).to_java unless past_limit.nil?
+      ib_object.unreported(!!unreported).to_java unless unreported.nil?
 
       ib_object
     end

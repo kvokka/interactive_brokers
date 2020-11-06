@@ -8,14 +8,14 @@ module InteractiveBrokersCommon
   ComboLeg = Struct.new(:conid, :ratio, :action, :exchange, :open_close, :short_sale_slot, :designated_location, :exempt_code, keyword_init: true) do
     def to_ib
       ib_object = Java::ComIbClient::ComboLeg.new
-      ib_object.conid(conid).to_java unless conid.nil?
-      ib_object.ratio(ratio).to_java unless ratio.nil?
-      ib_object.action(action).to_java unless action.nil?
-      ib_object.exchange(exchange).to_java unless exchange.nil?
-      ib_object.openClose(open_close).to_java unless open_close.nil?
-      ib_object.shortSaleSlot(short_sale_slot).to_java unless short_sale_slot.nil?
-      ib_object.designatedLocation(designated_location).to_java unless designated_location.nil?
-      ib_object.exemptCode(exempt_code).to_java unless exempt_code.nil?
+      ib_object.conid(Integer(conid)).to_java unless conid.nil?
+      ib_object.ratio(Integer(ratio)).to_java unless ratio.nil?
+      ib_object.action(String(action)).to_java unless action.nil?
+      ib_object.exchange(String(exchange)).to_java unless exchange.nil?
+      ib_object.openClose(Integer(open_close)).to_java unless open_close.nil?
+      ib_object.shortSaleSlot(Integer(short_sale_slot)).to_java unless short_sale_slot.nil?
+      ib_object.designatedLocation(String(designated_location)).to_java unless designated_location.nil?
+      ib_object.exemptCode(Integer(exempt_code)).to_java unless exempt_code.nil?
 
       ib_object
     end

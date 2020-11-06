@@ -5,10 +5,11 @@
 # ---------------------------------------------
 
 module InteractiveBrokersCommon
-  TimeCondition = Struct.new(:time, keyword_init: true) do
+  TagValue = Struct.new(:tag, :value, keyword_init: true) do
     def to_ib
-      ib_object = Java::ComIbClient::TimeCondition.new
-      ib_object.time(String(time)).to_java unless time.nil?
+      ib_object = Java::ComIbClient::TagValue.new
+      # Java method 'tag' does not have setter/getter
+      # Java method 'value' does not have setter/getter
 
       ib_object
     end

@@ -100,10 +100,11 @@ module InteractiveBrokersGenerator
     end
 
     def generate_to_ib_method
-      property_copy_sentences = ib_class.zipped_ruby_and_java_properties
-                                        .collect do |ruby_property, java_field|
+      property_copy_sentences = ib_class.java_property_fields.map do |java_field|
+        next "# Java method '#{java_field.name}' does not have setter/getter\n" unless java_field.has_setter?
+
         <<-RUBY
-          ib_object.#{java_field.name}(#{ruby_property}).to_java unless #{ruby_property}.nil?
+          ib_object.#{java_field.name}(#{java_field.name_with_coercion}).to_java unless #{java_field.ruby_name}.nil?
         RUBY
       end
 

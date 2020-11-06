@@ -13,6 +13,9 @@ RSpec/ExpectActual:
 RSpec/NamedSubject:
   Enabled: false
 
+RSpec/DescribeClass:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 

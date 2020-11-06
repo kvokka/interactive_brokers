@@ -5,12 +5,10 @@
 # ---------------------------------------------
 
 module InteractiveBrokersCommon
-  HistoricalTick = Struct.new(:time, :price, :size, keyword_init: true) do
+  OrderComboLeg = Struct.new(:price, keyword_init: true) do
     def to_ib
-      ib_object = Java::ComIbClient::HistoricalTick.new
-      ib_object.time(Integer(time)).to_java unless time.nil?
+      ib_object = Java::ComIbClient::OrderComboLeg.new
       ib_object.price(Float(price)).to_java unless price.nil?
-      ib_object.size(Integer(size)).to_java unless size.nil?
 
       ib_object
     end

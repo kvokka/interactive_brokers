@@ -3,7 +3,7 @@
 java_import "com.ib.client.Contract"
 java_import "com.ib.client.ComboLeg"
 java_import "com.ib.client.Types"
-require "interactive_brokers/generators/class_source_generator"
+require "interactive_brokers_generator/class_source_generator"
 
 RSpec.describe InteractiveBrokersGenerator::ClassSourceGenerator do
   describe "#ruby_class_source_for" do

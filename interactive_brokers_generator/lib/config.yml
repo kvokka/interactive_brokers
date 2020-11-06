@@ -16,3 +16,7 @@ classes:
   - ScannerSubscription
   - PriceCondition
   - TimeCondition
+  - TagValue
+  - OrderComboLeg
+  - OrderType
+  - SoftDollarTier

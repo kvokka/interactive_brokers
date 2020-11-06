@@ -50,6 +50,20 @@ module InteractiveBrokersGenerator
         ruby_property_names.zip(java_property_fields)
       end
 
+      # Return a hash with a method name, where method name of a List getter is a key,
+      # and java class name string as a value, which is a type if this List
+      # it should be better way than this hack, but i did not find it
+      #
+      # @return [Hash<String, String>]
+      def list_types
+        @list_types ||= klass.java_class.declared_instance_methods.each_with_object({}) do |method, acc|
+          type = method.to_generic_string.match(/.*\(java\.util\.List<com\.ib\.client\.(\w+)>\)$/)&.captures&.first
+          next unless type
+
+          acc[method.name] = type
+        end
+      end
+
       private
 
       def java_fields
