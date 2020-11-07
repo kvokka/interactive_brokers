@@ -28,10 +28,10 @@ module InteractiveBrokersProxy
         next if respond_to?(ruby_method_name)
 
         class_eval <<-RUBY, __FILE__, __LINE__ + 1
-            def #{java_method.name}(*arguments)
-              ruby_arguments = arguments.map(&:to_ruby)
-              logger.info "Received callback '#{ruby_method_name}' with arguments \#{ruby_arguments.inspect}"
-            end
+            def #{java_method.name}(*arguments)                                                               # def ContractDetails(*arguments)
+              ruby_arguments = arguments.map(&:to_ruby)                                                       #   ruby_arguments = arguments.map(&:to_ruby)
+              logger.info "Received callback '#{ruby_method_name}' with arguments \#{ruby_arguments.inspect}" #   logger.info "Received callback 'contract_details' with arguments \#{ruby_arguments.inspect}"
+            end                                                                                               # end
         RUBY
       end
     end

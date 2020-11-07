@@ -29,11 +29,11 @@ module InteractiveBrokersProxy
         next if respond_to?(ruby_method_name)
 
         class_eval <<-RUBY, __FILE__, __LINE__ + 1
-          def #{ruby_method_name}(*arguments)
-            client_socket.#{java_method.name} *arguments.map(&:to_ib)
-            logger.debug "Received '#{ruby_method_name}' with arguments \#{ruby_arguments.inspect}"
-            nil
-          end
+          def #{ruby_method_name}(*arguments)                                                        # def req_contract_details(*arguments)
+            client_socket.#{java_method.name} *arguments.map(&:to_ib)                                #   client_socket.reqContractDetails *arguments.map(&:to_ib)
+            logger.debug "Received '#{ruby_method_name}' with arguments \#{ruby_arguments.inspect}"  #   logger.debug "Received 'req_contract_details' with arguments \#{ruby_arguments.inspect}"
+            nil                                                                                      #   nil
+          end                                                                                        # end
         RUBY
       end
     end

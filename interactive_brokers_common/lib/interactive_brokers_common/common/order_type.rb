@@ -7,10 +7,8 @@
 module InteractiveBrokersCommon
   OrderType = Struct.new(:api_string, keyword_init: true) do
     def to_ib
-      ib_object = Java::ComIbClient::OrderType.new
+      Java::ComIbClient::OrderType.new
       # Java method 'apiString' does not have setter/getter
-
-      ib_object
     end
 
     def check_value_types!

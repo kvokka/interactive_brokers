@@ -93,7 +93,7 @@ module InteractiveBrokersProxy
 
     def default_logger
       require "logger"
-      Logger.new(STDOUT)
+      Logger.new($stdout)
     end
   end
 end

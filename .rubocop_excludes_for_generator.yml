@@ -53,3 +53,7 @@ Metrics/CyclomaticComplexity:
 Style/DoubleNegation:
   Exclude:
     - 'interactive_brokers_common/lib/interactive_brokers_common/common/**/*'
+
+Lint/StructNewOverride:
+  Exclude:
+    - 'interactive_brokers_common/lib/interactive_brokers_common/common/**/*'

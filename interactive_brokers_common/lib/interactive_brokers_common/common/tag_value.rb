@@ -7,11 +7,9 @@
 module InteractiveBrokersCommon
   TagValue = Struct.new(:tag, :value, keyword_init: true) do
     def to_ib
-      ib_object = Java::ComIbClient::TagValue.new
+      Java::ComIbClient::TagValue.new
       # Java method 'tag' does not have setter/getter
       # Java method 'value' does not have setter/getter
-
-      ib_object
     end
 
     def check_value_types!

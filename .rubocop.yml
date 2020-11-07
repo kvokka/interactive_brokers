@@ -21,6 +21,7 @@ Style/StringLiterals:
 
 AllCops:
   TargetRubyVersion: 2.5
+  NewCops: enable
 
 Metrics/CyclomaticComplexity:
   Max: 10
