@@ -14,5 +14,13 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      Integer(time) unless time.nil?
+      Float(price) unless price.nil?
+      Integer(size) unless size.nil?
+
+      true
+    end
   end
 end

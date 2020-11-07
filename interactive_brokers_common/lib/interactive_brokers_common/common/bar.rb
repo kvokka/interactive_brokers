@@ -19,5 +19,18 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      String(time) unless time.nil?
+      Float(open) unless open.nil?
+      Float(high) unless high.nil?
+      Float(low) unless low.nil?
+      Float(close) unless close.nil?
+      Integer(volume) unless volume.nil?
+      Integer(count) unless count.nil?
+      Float(wap) unless wap.nil?
+
+      true
+    end
   end
 end

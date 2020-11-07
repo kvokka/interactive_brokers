@@ -55,5 +55,54 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      unless contract.nil?
+        contract.is_a?(Contract) ? contract : Contract.new(contract)
+      end
+      String(market_name) unless market_name.nil?
+      Float(min_tick) unless min_tick.nil?
+      Integer(price_magnifier) unless price_magnifier.nil?
+      String(order_types) unless order_types.nil?
+      String(valid_exchanges) unless valid_exchanges.nil?
+      Integer(under_conid) unless under_conid.nil?
+      String(long_name) unless long_name.nil?
+      String(contract_month) unless contract_month.nil?
+      String(industry) unless industry.nil?
+      String(category) unless category.nil?
+      String(subcategory) unless subcategory.nil?
+      String(time_zone_id) unless time_zone_id.nil?
+      String(trading_hours) unless trading_hours.nil?
+      String(liquid_hours) unless liquid_hours.nil?
+      String(ev_rule) unless ev_rule.nil?
+      Float(ev_multiplier) unless ev_multiplier.nil?
+      Integer(md_size_multiplier) unless md_size_multiplier.nil?
+      unless sec_id_list.nil?
+        sec_id_list.all? { |e| e.is_a?(TagValue) } ? sec_id_list : sec_id_list.map { |hash| TagValue.new(hash) }
+      end
+      Integer(agg_group) unless agg_group.nil?
+      String(under_symbol) unless under_symbol.nil?
+      String(under_sec_type) unless under_sec_type.nil?
+      String(market_rule_ids) unless market_rule_ids.nil?
+      String(real_expiration_date) unless real_expiration_date.nil?
+      String(last_trade_time) unless last_trade_time.nil?
+      String(cusip) unless cusip.nil?
+      String(ratings) unless ratings.nil?
+      String(desc_append) unless desc_append.nil?
+      String(bond_type) unless bond_type.nil?
+      String(coupon_type) unless coupon_type.nil?
+      !!callable unless callable.nil?
+      !!putable unless putable.nil?
+      Float(coupon) unless coupon.nil?
+      !!convertible unless convertible.nil?
+      String(maturity) unless maturity.nil?
+      String(issue_date) unless issue_date.nil?
+      String(next_option_date) unless next_option_date.nil?
+      String(next_option_type) unless next_option_type.nil?
+      !!next_option_partial unless next_option_partial.nil?
+      String(notes) unless notes.nil?
+
+      true
+    end
   end
 end

@@ -13,5 +13,12 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      !!bid_past_low unless bid_past_low.nil?
+      !!ask_past_high unless ask_past_high.nil?
+
+      true
+    end
   end
 end

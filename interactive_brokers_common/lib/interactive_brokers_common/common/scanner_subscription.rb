@@ -34,5 +34,31 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      Integer(number_of_rows) unless number_of_rows.nil?
+      String(instrument) unless instrument.nil?
+      String(location_code) unless location_code.nil?
+      String(scan_code) unless scan_code.nil?
+      Float(above_price) unless above_price.nil?
+      Float(below_price) unless below_price.nil?
+      Integer(above_volume) unless above_volume.nil?
+      Integer(average_option_volume_above) unless average_option_volume_above.nil?
+      Float(market_cap_above) unless market_cap_above.nil?
+      Float(market_cap_below) unless market_cap_below.nil?
+      String(moody_rating_above) unless moody_rating_above.nil?
+      String(moody_rating_below) unless moody_rating_below.nil?
+      String(sp_rating_above) unless sp_rating_above.nil?
+      String(sp_rating_below) unless sp_rating_below.nil?
+      String(maturity_date_above) unless maturity_date_above.nil?
+      String(maturity_date_below) unless maturity_date_below.nil?
+      Float(coupon_rate_above) unless coupon_rate_above.nil?
+      Float(coupon_rate_below) unless coupon_rate_below.nil?
+      !!exclude_convertible unless exclude_convertible.nil?
+      String(scanner_setting_pairs) unless scanner_setting_pairs.nil?
+      String(stock_type_filter) unless stock_type_filter.nil?
+
+      true
+    end
   end
 end

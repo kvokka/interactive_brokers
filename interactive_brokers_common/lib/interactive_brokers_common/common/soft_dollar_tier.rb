@@ -14,5 +14,13 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      String(name) unless name.nil?
+      String(value) unless value.nil?
+      # Java method 'displayName' does not have setter/getter
+
+      true
+    end
   end
 end

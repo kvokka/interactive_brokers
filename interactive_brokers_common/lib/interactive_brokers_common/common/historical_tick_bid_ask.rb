@@ -19,5 +19,18 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      Integer(time) unless time.nil?
+      unless tick_attrib_bid_ask.nil?
+        tick_attrib_bid_ask.is_a?(TickAttribBidAsk) ? tick_attrib_bid_ask : TickAttribBidAsk.new(tick_attrib_bid_ask)
+      end
+      Float(price_bid) unless price_bid.nil?
+      Float(price_ask) unless price_ask.nil?
+      Integer(size_bid) unless size_bid.nil?
+      Integer(size_ask) unless size_ask.nil?
+
+      true
+    end
   end
 end

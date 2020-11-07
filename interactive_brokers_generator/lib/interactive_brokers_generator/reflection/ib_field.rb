@@ -24,9 +24,11 @@ module InteractiveBrokersGenerator
         name.underscore
       end
 
+      # Creates the coercion string, which is applicable to tun in Ruby & Jruby
+      #
       # rubocop:disable Metrics/AbcSize
       # rubocop:disable Metrics/MethodLength
-      def name_with_coercion
+      def to_eval_ruby
         case value_type = java_field.value_type
         when "java.lang.String"
           "String(#{ruby_name})"
@@ -38,17 +40,26 @@ module InteractiveBrokersGenerator
           "!!#{ruby_name}"
         when /^com\.ib\.client\./
           klass = java_field.type.ruby_class.name.demodulize
-          "(#{ruby_name}.is_a?(#{klass}) ? #{ruby_name} : #{klass}.new(#{ruby_name})).to_ib"
+          "#{ruby_name}.is_a?(#{klass}) ? #{ruby_name} : #{klass}.new(#{ruby_name})"
         when "java.util.List"
           klass = ib_class.list_types[name] || raise("In class #{ib_class.klass} type for List #{name} not found!")
-          "(#{ruby_name}.all?{|e| e.is_a?(#{klass})} ? #{ruby_name} : "\
-          "#{ruby_name}.map{|hash| #{klass}.new(hash) }).to_ib"
+          "#{ruby_name}.all?{|e| e.is_a?(#{klass})} ? #{ruby_name} : "\
+          "#{ruby_name}.map{|hash| #{klass}.new(hash) }"
         else
           raise("Unknown type '#{value_type}' for method #{ib_class.klass.name}##{name} ")
         end
       end
       # rubocop:enable Metrics/AbcSize
       # rubocop:enable Metrics/MethodLength
+
+      def to_eval_jruby
+        case java_field.value_type
+        when /^com\.ib\.client\./, "java.util.List"
+          "(#{to_eval_ruby}).to_ib"
+        else
+          to_eval_ruby
+        end
+      end
 
       # rubocop:disable Naming/PredicateName
       def has_setter?

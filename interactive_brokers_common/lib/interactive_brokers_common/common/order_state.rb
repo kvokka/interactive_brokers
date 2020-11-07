@@ -28,5 +28,27 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      String(status) unless status.nil?
+      String(init_margin_before) unless init_margin_before.nil?
+      String(maint_margin_before) unless maint_margin_before.nil?
+      String(equity_with_loan_before) unless equity_with_loan_before.nil?
+      String(init_margin_change) unless init_margin_change.nil?
+      String(maint_margin_change) unless maint_margin_change.nil?
+      String(equity_with_loan_change) unless equity_with_loan_change.nil?
+      String(init_margin_after) unless init_margin_after.nil?
+      String(maint_margin_after) unless maint_margin_after.nil?
+      String(equity_with_loan_after) unless equity_with_loan_after.nil?
+      Float(commission) unless commission.nil?
+      Float(min_commission) unless min_commission.nil?
+      Float(max_commission) unless max_commission.nil?
+      String(commission_currency) unless commission_currency.nil?
+      String(warning_text) unless warning_text.nil?
+      String(completed_time) unless completed_time.nil?
+      String(completed_status) unless completed_status.nil?
+
+      true
+    end
   end
 end

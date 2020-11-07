@@ -12,5 +12,11 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      Float(price) unless price.nil?
+
+      true
+    end
   end
 end

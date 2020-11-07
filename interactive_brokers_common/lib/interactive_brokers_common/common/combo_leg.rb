@@ -19,5 +19,18 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      Integer(conid) unless conid.nil?
+      Integer(ratio) unless ratio.nil?
+      String(action) unless action.nil?
+      String(exchange) unless exchange.nil?
+      Integer(open_close) unless open_close.nil?
+      Integer(short_sale_slot) unless short_sale_slot.nil?
+      String(designated_location) unless designated_location.nil?
+      Integer(exempt_code) unless exempt_code.nil?
+
+      true
+    end
   end
 end

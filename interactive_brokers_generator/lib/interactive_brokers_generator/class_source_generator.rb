@@ -75,6 +75,8 @@ module InteractiveBrokersGenerator
 
         #{generate_class_declaration}
           #{generate_to_ib_method}
+
+          #{generate_check_value_types_method}
         end
 
         #{generate_namespace_close}
@@ -99,12 +101,29 @@ module InteractiveBrokersGenerator
       RUBY
     end
 
+    def generate_check_value_types_method
+      property_copy_sentences = ib_class.java_property_fields.map do |java_field|
+        next "# Java method '#{java_field.name}' does not have setter/getter\n" unless java_field.has_setter?
+
+        <<-RUBY
+          #{java_field.to_eval_ruby} unless #{java_field.ruby_name}.nil?
+        RUBY
+      end
+
+      <<-RUBY
+        def check_value_types!
+          #{property_copy_sentences.join('')}
+          true
+        end
+      RUBY
+    end
+
     def generate_to_ib_method
       property_copy_sentences = ib_class.java_property_fields.map do |java_field|
         next "# Java method '#{java_field.name}' does not have setter/getter\n" unless java_field.has_setter?
 
         <<-RUBY
-          ib_object.#{java_field.name}(#{java_field.name_with_coercion}).to_java unless #{java_field.ruby_name}.nil?
+          ib_object.#{java_field.name}(#{java_field.to_eval_jruby}).to_java unless #{java_field.ruby_name}.nil?
         RUBY
       end
 

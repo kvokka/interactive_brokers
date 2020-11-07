@@ -12,5 +12,11 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      # Java method 'apiString' does not have setter/getter
+
+      true
+    end
   end
 end

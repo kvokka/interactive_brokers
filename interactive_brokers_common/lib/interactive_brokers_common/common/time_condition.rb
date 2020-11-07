@@ -12,5 +12,11 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      String(time) unless time.nil?
+
+      true
+    end
   end
 end

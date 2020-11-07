@@ -175,5 +175,154 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      Integer(client_id) unless client_id.nil?
+      Integer(order_id) unless order_id.nil?
+      Integer(perm_id) unless perm_id.nil?
+      Integer(parent_id) unless parent_id.nil?
+      String(action) unless action.nil?
+      Float(total_quantity) unless total_quantity.nil?
+      Integer(display_size) unless display_size.nil?
+      String(order_type) unless order_type.nil?
+      Float(lmt_price) unless lmt_price.nil?
+      Float(aux_price) unless aux_price.nil?
+      String(tif) unless tif.nil?
+      String(account) unless account.nil?
+      String(settling_firm) unless settling_firm.nil?
+      String(clearing_account) unless clearing_account.nil?
+      String(clearing_intent) unless clearing_intent.nil?
+      !!all_or_none unless all_or_none.nil?
+      !!block_order unless block_order.nil?
+      !!hidden unless hidden.nil?
+      !!outside_rth unless outside_rth.nil?
+      !!sweep_to_fill unless sweep_to_fill.nil?
+      Float(percent_offset) unless percent_offset.nil?
+      Float(trailing_percent) unless trailing_percent.nil?
+      Float(trail_stop_price) unless trail_stop_price.nil?
+      Integer(min_qty) unless min_qty.nil?
+      String(good_after_time) unless good_after_time.nil?
+      String(good_till_date) unless good_till_date.nil?
+      String(oca_group) unless oca_group.nil?
+      String(order_ref) unless order_ref.nil?
+      String(rule80_a) unless rule80_a.nil?
+      Integer(oca_type) unless oca_type.nil?
+      Integer(trigger_method) unless trigger_method.nil?
+      String(active_start_time) unless active_start_time.nil?
+      String(active_stop_time) unless active_stop_time.nil?
+      String(fa_group) unless fa_group.nil?
+      String(fa_method) unless fa_method.nil?
+      String(fa_percentage) unless fa_percentage.nil?
+      String(fa_profile) unless fa_profile.nil?
+      Float(volatility) unless volatility.nil?
+      Integer(volatility_type) unless volatility_type.nil?
+      Integer(continuous_update) unless continuous_update.nil?
+      Integer(reference_price_type) unless reference_price_type.nil?
+      String(delta_neutral_order_type) unless delta_neutral_order_type.nil?
+      Float(delta_neutral_aux_price) unless delta_neutral_aux_price.nil?
+      Integer(delta_neutral_con_id) unless delta_neutral_con_id.nil?
+      String(delta_neutral_open_close) unless delta_neutral_open_close.nil?
+      !!delta_neutral_short_sale unless delta_neutral_short_sale.nil?
+      Integer(delta_neutral_short_sale_slot) unless delta_neutral_short_sale_slot.nil?
+      String(delta_neutral_designated_location) unless delta_neutral_designated_location.nil?
+      Integer(scale_init_level_size) unless scale_init_level_size.nil?
+      Integer(scale_subs_level_size) unless scale_subs_level_size.nil?
+      Float(scale_price_increment) unless scale_price_increment.nil?
+      Float(scale_price_adjust_value) unless scale_price_adjust_value.nil?
+      Integer(scale_price_adjust_interval) unless scale_price_adjust_interval.nil?
+      Float(scale_profit_offset) unless scale_profit_offset.nil?
+      !!scale_auto_reset unless scale_auto_reset.nil?
+      Integer(scale_init_position) unless scale_init_position.nil?
+      Integer(scale_init_fill_qty) unless scale_init_fill_qty.nil?
+      !!scale_random_percent unless scale_random_percent.nil?
+      String(scale_table) unless scale_table.nil?
+      String(hedge_type) unless hedge_type.nil?
+      String(hedge_param) unless hedge_param.nil?
+      String(algo_strategy) unless algo_strategy.nil?
+      unless algo_params.nil?
+        algo_params.all? { |e| e.is_a?(TagValue) } ? algo_params : algo_params.map { |hash| TagValue.new(hash) }
+      end
+      String(algo_id) unless algo_id.nil?
+      unless smart_combo_routing_params.nil?
+        smart_combo_routing_params.all? { |e| e.is_a?(TagValue) } ? smart_combo_routing_params : smart_combo_routing_params.map { |hash| TagValue.new(hash) }
+      end
+      unless order_combo_legs.nil?
+        order_combo_legs.all? { |e| e.is_a?(OrderComboLeg) } ? order_combo_legs : order_combo_legs.map { |hash| OrderComboLeg.new(hash) }
+      end
+      !!what_if unless what_if.nil?
+      !!transmit unless transmit.nil?
+      !!override_percentage_constraints unless override_percentage_constraints.nil?
+      String(open_close) unless open_close.nil?
+      Integer(origin) unless origin.nil?
+      Integer(short_sale_slot) unless short_sale_slot.nil?
+      String(designated_location) unless designated_location.nil?
+      Integer(exempt_code) unless exempt_code.nil?
+      String(delta_neutral_settling_firm) unless delta_neutral_settling_firm.nil?
+      String(delta_neutral_clearing_account) unless delta_neutral_clearing_account.nil?
+      String(delta_neutral_clearing_intent) unless delta_neutral_clearing_intent.nil?
+      Float(discretionary_amt) unless discretionary_amt.nil?
+      !!e_trade_only unless e_trade_only.nil?
+      !!firm_quote_only unless firm_quote_only.nil?
+      Float(nbbo_price_cap) unless nbbo_price_cap.nil?
+      !!opt_out_smart_routing unless opt_out_smart_routing.nil?
+      Integer(auction_strategy) unless auction_strategy.nil?
+      Float(starting_price) unless starting_price.nil?
+      Float(stock_ref_price) unless stock_ref_price.nil?
+      Float(delta) unless delta.nil?
+      Float(stock_range_lower) unless stock_range_lower.nil?
+      Float(stock_range_upper) unless stock_range_upper.nil?
+      Float(basis_points) unless basis_points.nil?
+      Integer(basis_points_type) unless basis_points_type.nil?
+      !!not_held unless not_held.nil?
+      unless order_misc_options.nil?
+        order_misc_options.all? { |e| e.is_a?(TagValue) } ? order_misc_options : order_misc_options.map { |hash| TagValue.new(hash) }
+      end
+      !!solicited unless solicited.nil?
+      !!randomize_size unless randomize_size.nil?
+      !!randomize_price unless randomize_price.nil?
+      Integer(reference_contract_id) unless reference_contract_id.nil?
+      Float(pegged_change_amount) unless pegged_change_amount.nil?
+      !!is_pegged_change_amount_decrease unless is_pegged_change_amount_decrease.nil?
+      Float(reference_change_amount) unless reference_change_amount.nil?
+      String(reference_exchange_id) unless reference_exchange_id.nil?
+      unless adjusted_order_type.nil?
+        adjusted_order_type.is_a?(OrderType) ? adjusted_order_type : OrderType.new(adjusted_order_type)
+      end
+      Float(trigger_price) unless trigger_price.nil?
+      Float(adjusted_stop_price) unless adjusted_stop_price.nil?
+      Float(adjusted_stop_limit_price) unless adjusted_stop_limit_price.nil?
+      Float(adjusted_trailing_amount) unless adjusted_trailing_amount.nil?
+      Integer(adjustable_trailing_unit) unless adjustable_trailing_unit.nil?
+      Float(lmt_price_offset) unless lmt_price_offset.nil?
+      unless conditions.nil?
+        conditions.all? { |e| e.is_a?(OrderCondition) } ? conditions : conditions.map { |hash| OrderCondition.new(hash) }
+      end
+      !!conditions_cancel_order unless conditions_cancel_order.nil?
+      !!conditions_ignore_rth unless conditions_ignore_rth.nil?
+      String(model_code) unless model_code.nil?
+      String(ext_operator) unless ext_operator.nil?
+      unless soft_dollar_tier.nil?
+        soft_dollar_tier.is_a?(SoftDollarTier) ? soft_dollar_tier : SoftDollarTier.new(soft_dollar_tier)
+      end
+      Float(cash_qty) unless cash_qty.nil?
+      String(mifid2_decision_maker) unless mifid2_decision_maker.nil?
+      String(mifid2_decision_algo) unless mifid2_decision_algo.nil?
+      String(mifid2_execution_trader) unless mifid2_execution_trader.nil?
+      String(mifid2_execution_algo) unless mifid2_execution_algo.nil?
+      !!dont_use_auto_price_for_hedge unless dont_use_auto_price_for_hedge.nil?
+      !!is_oms_container unless is_oms_container.nil?
+      !!discretionary_up_to_limit_price unless discretionary_up_to_limit_price.nil?
+      String(auto_cancel_date) unless auto_cancel_date.nil?
+      Float(filled_quantity) unless filled_quantity.nil?
+      Integer(ref_futures_con_id) unless ref_futures_con_id.nil?
+      !!auto_cancel_parent unless auto_cancel_parent.nil?
+      String(shareholder) unless shareholder.nil?
+      !!imbalance_only unless imbalance_only.nil?
+      !!route_marketable_to_bbo unless route_marketable_to_bbo.nil?
+      Integer(parent_perm_id) unless parent_perm_id.nil?
+      !!use_price_mgmt_algo unless use_price_mgmt_algo.nil?
+
+      true
+    end
   end
 end

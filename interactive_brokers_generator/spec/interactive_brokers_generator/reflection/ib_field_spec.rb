@@ -39,35 +39,35 @@ module InteractiveBrokersGenerator
       end
 
       # rubocop:disable RSpec/MultipleMemoizedHelpers
-      describe "#name_with_coercion" do
+      describe "#to_eval_jruby" do
         let(:name) { "fieldName" }
         let(:ruby_name) { name.underscore }
 
         context "with string" do
           let(:java_field) { instance_double(Java::JavaField, value_type: "java.lang.String", name: name) }
 
-          it { expect(subject.name_with_coercion).to eq "String(#{ruby_name})" }
+          it { expect(subject.to_eval_jruby).to eq "String(#{ruby_name})" }
         end
 
         context "with integer" do
           %w[int long].each do |value_type|
             let(:java_field) { instance_double(Java::JavaField, value_type: value_type, name: name) }
 
-            it("for #{value_type}") { expect(subject.name_with_coercion).to eq "Integer(#{ruby_name})" }
+            it("for #{value_type}") { expect(subject.to_eval_jruby).to eq "Integer(#{ruby_name})" }
           end
         end
 
         context "with float" do
           let(:java_field) { instance_double(Java::JavaField, value_type: "double", name: name) }
 
-          it { expect(subject.name_with_coercion).to eq "Float(#{ruby_name})" }
+          it { expect(subject.to_eval_jruby).to eq "Float(#{ruby_name})" }
         end
 
         context "with boolean" do
           %w[boolean java.lang.Boolean].each do |value_type|
             let(:java_field) { instance_double(Java::JavaField, value_type: value_type, name: name) }
 
-            it("for #{value_type}") { expect(subject.name_with_coercion).to eq "!!#{ruby_name}" }
+            it("for #{value_type}") { expect(subject.to_eval_jruby).to eq "!!#{ruby_name}" }
           end
         end
 
@@ -80,7 +80,7 @@ module InteractiveBrokersGenerator
             "(#{ruby_name}.is_a?(DeltaNeutralContract) ? #{ruby_name} : DeltaNeutralContract.new(#{ruby_name})).to_ib"
           end
 
-          it { expect(subject.name_with_coercion).to eq result }
+          it { expect(subject.to_eval_jruby).to eq result }
         end
 
         context "with java.util.List" do
@@ -91,7 +91,7 @@ module InteractiveBrokersGenerator
               allow(ib_class).to receive(:list_types).and_return({})
             end
 
-            it { expect { subject.name_with_coercion }.to raise_error RuntimeError }
+            it { expect { subject.to_eval_jruby }.to raise_error RuntimeError }
           end
 
           context "with corresponding method in ib_class" do
@@ -104,14 +104,14 @@ module InteractiveBrokersGenerator
               "field_name.map{|hash| ResultingKlass.new(hash) }).to_ib"
             end
 
-            it { expect(subject.name_with_coercion).to eq result }
+            it { expect(subject.to_eval_jruby).to eq result }
           end
         end
 
         context "with unsupported type" do
           let(:java_field) { instance_double(Java::JavaField, value_type: "unsupported_type", name: name) }
 
-          it { expect { subject.name_with_coercion }.to raise_error RuntimeError }
+          it { expect { subject.to_eval_jruby }.to raise_error RuntimeError }
         end
       end
       # rubocop:enable RSpec/MultipleMemoizedHelpers

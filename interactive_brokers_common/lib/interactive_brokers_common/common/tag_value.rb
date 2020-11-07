@@ -13,5 +13,12 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      # Java method 'tag' does not have setter/getter
+      # Java method 'value' does not have setter/getter
+
+      true
+    end
   end
 end

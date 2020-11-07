@@ -13,5 +13,12 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      !!past_limit unless past_limit.nil?
+      !!unreported unless unreported.nil?
+
+      true
+    end
   end
 end

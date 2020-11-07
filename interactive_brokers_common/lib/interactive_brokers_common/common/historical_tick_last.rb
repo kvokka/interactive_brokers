@@ -19,5 +19,18 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      Integer(time) unless time.nil?
+      unless tick_attrib_last.nil?
+        tick_attrib_last.is_a?(TickAttribLast) ? tick_attrib_last : TickAttribLast.new(tick_attrib_last)
+      end
+      Float(price) unless price.nil?
+      Integer(size) unless size.nil?
+      String(exchange) unless exchange.nil?
+      String(special_conditions) unless special_conditions.nil?
+
+      true
+    end
   end
 end

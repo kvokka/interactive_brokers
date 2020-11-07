@@ -35,5 +35,32 @@ module InteractiveBrokersCommon
 
       ib_object
     end
+
+    def check_value_types!
+      Integer(conid) unless conid.nil?
+      String(symbol) unless symbol.nil?
+      String(sec_type) unless sec_type.nil?
+      String(last_trade_date_or_contract_month) unless last_trade_date_or_contract_month.nil?
+      Float(strike) unless strike.nil?
+      String(right) unless right.nil?
+      String(multiplier) unless multiplier.nil?
+      String(exchange) unless exchange.nil?
+      String(primary_exch) unless primary_exch.nil?
+      String(currency) unless currency.nil?
+      String(local_symbol) unless local_symbol.nil?
+      String(trading_class) unless trading_class.nil?
+      String(sec_id_type) unless sec_id_type.nil?
+      String(sec_id) unless sec_id.nil?
+      unless delta_neutral_contract.nil?
+        delta_neutral_contract.is_a?(DeltaNeutralContract) ? delta_neutral_contract : DeltaNeutralContract.new(delta_neutral_contract)
+      end
+      !!include_expired unless include_expired.nil?
+      String(combo_legs_descrip) unless combo_legs_descrip.nil?
+      unless combo_legs.nil?
+        combo_legs.all? { |e| e.is_a?(ComboLeg) } ? combo_legs : combo_legs.map { |hash| ComboLeg.new(hash) }
+      end
+
+      true
+    end
   end
 end
