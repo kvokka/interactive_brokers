@@ -30,25 +30,44 @@ module InteractiveBrokersCommon
     end
 
     def check_value_types!
+      current_field = :status
       String(status) unless status.nil?
+      current_field = :init_margin_before
       String(init_margin_before) unless init_margin_before.nil?
+      current_field = :maint_margin_before
       String(maint_margin_before) unless maint_margin_before.nil?
+      current_field = :equity_with_loan_before
       String(equity_with_loan_before) unless equity_with_loan_before.nil?
+      current_field = :init_margin_change
       String(init_margin_change) unless init_margin_change.nil?
+      current_field = :maint_margin_change
       String(maint_margin_change) unless maint_margin_change.nil?
+      current_field = :equity_with_loan_change
       String(equity_with_loan_change) unless equity_with_loan_change.nil?
+      current_field = :init_margin_after
       String(init_margin_after) unless init_margin_after.nil?
+      current_field = :maint_margin_after
       String(maint_margin_after) unless maint_margin_after.nil?
+      current_field = :equity_with_loan_after
       String(equity_with_loan_after) unless equity_with_loan_after.nil?
+      current_field = :commission
       Float(commission) unless commission.nil?
+      current_field = :min_commission
       Float(min_commission) unless min_commission.nil?
+      current_field = :max_commission
       Float(max_commission) unless max_commission.nil?
+      current_field = :commission_currency
       String(commission_currency) unless commission_currency.nil?
+      current_field = :warning_text
       String(warning_text) unless warning_text.nil?
+      current_field = :completed_time
       String(completed_time) unless completed_time.nil?
+      current_field = :completed_status
       String(completed_status) unless completed_status.nil?
 
       true
+    rescue StandardError => e
+      raise $ERROR_INFO, e.message.concat(". Check value of \"#{current_field}\""), $ERROR_INFO.backtrace
     end
   end
 end

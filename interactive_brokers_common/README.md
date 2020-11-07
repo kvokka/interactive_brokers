@@ -7,6 +7,10 @@ application.
 Includes the Ruby mirror of JRuby classes, which allows to easy create request parameters.
 All methods & parameters names mirror [official API doc](https://interactivebrokers.github.io/tws-api/index.html).
 
+Each `Common` Struct contains `#to_ib` method which is here for JRuby code and
+`#check_value_types!` which will help to check types on CRuby side. See specs for
+more examples
+
 ## Installation
 
 `gem install interactive_brokers_common`

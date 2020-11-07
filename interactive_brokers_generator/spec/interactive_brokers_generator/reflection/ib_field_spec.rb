@@ -84,7 +84,7 @@ module InteractiveBrokersGenerator
         end
 
         context "with java.util.List" do
-          let(:java_field) { instance_double(Java::JavaField,  value_type: "java.util.List", name: name) }
+          let(:java_field) { instance_double(Java::JavaField, value_type: "java.util.List", name: name) }
 
           context "with out method in ib class" do
             before do

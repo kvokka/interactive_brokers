@@ -21,16 +21,24 @@ module InteractiveBrokersCommon
     end
 
     def check_value_types!
+      current_field = :time
       Integer(time) unless time.nil?
+      current_field = :tick_attrib_last
       unless tick_attrib_last.nil?
-        tick_attrib_last.is_a?(TickAttribLast) ? tick_attrib_last : TickAttribLast.new(tick_attrib_last)
+        (tick_attrib_last.is_a?(TickAttribLast) ? tick_attrib_last : TickAttribLast.new(tick_attrib_last)).check_value_types!
       end
+      current_field = :price
       Float(price) unless price.nil?
+      current_field = :size
       Integer(size) unless size.nil?
+      current_field = :exchange
       String(exchange) unless exchange.nil?
+      current_field = :special_conditions
       String(special_conditions) unless special_conditions.nil?
 
       true
+    rescue StandardError => e
+      raise $ERROR_INFO, e.message.concat(". Check value of \"#{current_field}\""), $ERROR_INFO.backtrace
     end
   end
 end

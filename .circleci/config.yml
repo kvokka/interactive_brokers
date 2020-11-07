@@ -79,6 +79,30 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+  common_tests:
+    <<: *defaults
+    steps:
+      - prepare
+      - run:
+          name: run tests
+          command: |
+            cd interactive_brokers_common
+            mkdir /tmp/test-results
+
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+
+            bundle exec rspec --format progress \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            --tag ~type:performance \
+                            $TEST_FILES
+
+      # collect reports
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
   rubocop:
     <<: *defaults
     steps:
@@ -92,4 +116,5 @@ workflows:
     jobs:
       - proxy_tests
       - generator_tests
+      - common_tests
       - rubocop

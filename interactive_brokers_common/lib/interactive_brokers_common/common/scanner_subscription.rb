@@ -36,29 +36,52 @@ module InteractiveBrokersCommon
     end
 
     def check_value_types!
+      current_field = :number_of_rows
       Integer(number_of_rows) unless number_of_rows.nil?
+      current_field = :instrument
       String(instrument) unless instrument.nil?
+      current_field = :location_code
       String(location_code) unless location_code.nil?
+      current_field = :scan_code
       String(scan_code) unless scan_code.nil?
+      current_field = :above_price
       Float(above_price) unless above_price.nil?
+      current_field = :below_price
       Float(below_price) unless below_price.nil?
+      current_field = :above_volume
       Integer(above_volume) unless above_volume.nil?
+      current_field = :average_option_volume_above
       Integer(average_option_volume_above) unless average_option_volume_above.nil?
+      current_field = :market_cap_above
       Float(market_cap_above) unless market_cap_above.nil?
+      current_field = :market_cap_below
       Float(market_cap_below) unless market_cap_below.nil?
+      current_field = :moody_rating_above
       String(moody_rating_above) unless moody_rating_above.nil?
+      current_field = :moody_rating_below
       String(moody_rating_below) unless moody_rating_below.nil?
+      current_field = :sp_rating_above
       String(sp_rating_above) unless sp_rating_above.nil?
+      current_field = :sp_rating_below
       String(sp_rating_below) unless sp_rating_below.nil?
+      current_field = :maturity_date_above
       String(maturity_date_above) unless maturity_date_above.nil?
+      current_field = :maturity_date_below
       String(maturity_date_below) unless maturity_date_below.nil?
+      current_field = :coupon_rate_above
       Float(coupon_rate_above) unless coupon_rate_above.nil?
+      current_field = :coupon_rate_below
       Float(coupon_rate_below) unless coupon_rate_below.nil?
+      current_field = :exclude_convertible
       !!exclude_convertible unless exclude_convertible.nil?
+      current_field = :scanner_setting_pairs
       String(scanner_setting_pairs) unless scanner_setting_pairs.nil?
+      current_field = :stock_type_filter
       String(stock_type_filter) unless stock_type_filter.nil?
 
       true
+    rescue StandardError => e
+      raise $ERROR_INFO, e.message.concat(". Check value of \"#{current_field}\""), $ERROR_INFO.backtrace
     end
   end
 end

@@ -15,10 +15,14 @@ module InteractiveBrokersCommon
     end
 
     def check_value_types!
+      current_field = :bid_past_low
       !!bid_past_low unless bid_past_low.nil?
+      current_field = :ask_past_high
       !!ask_past_high unless ask_past_high.nil?
 
       true
+    rescue StandardError => e
+      raise $ERROR_INFO, e.message.concat(". Check value of \"#{current_field}\""), $ERROR_INFO.backtrace
     end
   end
 end

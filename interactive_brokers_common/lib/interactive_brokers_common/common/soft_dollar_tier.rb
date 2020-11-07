@@ -16,11 +16,15 @@ module InteractiveBrokersCommon
     end
 
     def check_value_types!
+      current_field = :name
       String(name) unless name.nil?
+      current_field = :value
       String(value) unless value.nil?
       # Java method 'displayName' does not have setter/getter
 
       true
+    rescue StandardError => e
+      raise $ERROR_INFO, e.message.concat(". Check value of \"#{current_field}\""), $ERROR_INFO.backtrace
     end
   end
 end

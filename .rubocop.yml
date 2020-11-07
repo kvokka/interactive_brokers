@@ -33,6 +33,11 @@ Metrics/BlockLength:
   Exclude:
     - 'interactive_brokers_generator/spec/**/*'
     - 'interactive_brokers_proxy/spec/**/*'
+    - 'interactive_brokers_common/spec/**/*'
+
+RSpec/NestedGroups:
+  Exclude:
+    - 'interactive_brokers_common/spec/interactive_brokers_common/common/**/*'
 
 RSpec/BeforeAfterAll:
   Exclude:
@@ -46,3 +51,7 @@ RSpec/ExampleLength:
 RSpec/MultipleExpectations:
   Exclude:
    - 'interactive_brokers_generator/spec/interactive_brokers_generator/class_source_generator_spec.rb'
+
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - 'interactive_brokers_common/spec/interactive_brokers_common/common/**/*.rb'

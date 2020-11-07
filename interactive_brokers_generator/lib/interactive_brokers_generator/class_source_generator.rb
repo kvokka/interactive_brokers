@@ -106,7 +106,8 @@ module InteractiveBrokersGenerator
         next "# Java method '#{java_field.name}' does not have setter/getter\n" unless java_field.has_setter?
 
         <<-RUBY
-          #{java_field.to_eval_ruby} unless #{java_field.ruby_name}.nil?
+          current_field=:#{java_field.ruby_name}
+          #{java_field.to_eval_ruby_check_types} unless #{java_field.ruby_name}.nil?
         RUBY
       end
 
@@ -114,6 +115,8 @@ module InteractiveBrokersGenerator
         def check_value_types!
           #{property_copy_sentences.join('')}
           true
+          rescue => e
+            raise $!, e.message.concat(". Check value of \\"\#{current_field}\\""), $!.backtrace
         end
       RUBY
     end

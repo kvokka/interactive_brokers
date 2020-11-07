@@ -19,6 +19,8 @@ module InteractiveBrokersCommon
       # Java method 'value' does not have setter/getter
 
       true
+    rescue StandardError => e
+      raise $ERROR_INFO, e.message.concat(". Check value of \"#{current_field}\""), $ERROR_INFO.backtrace
     end
   end
 end

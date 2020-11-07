@@ -21,16 +21,26 @@ module InteractiveBrokersCommon
     end
 
     def check_value_types!
+      current_field = :time
       String(time) unless time.nil?
+      current_field = :open
       Float(open) unless open.nil?
+      current_field = :high
       Float(high) unless high.nil?
+      current_field = :low
       Float(low) unless low.nil?
+      current_field = :close
       Float(close) unless close.nil?
+      current_field = :volume
       Integer(volume) unless volume.nil?
+      current_field = :count
       Integer(count) unless count.nil?
+      current_field = :wap
       Float(wap) unless wap.nil?
 
       true
+    rescue StandardError => e
+      raise $ERROR_INFO, e.message.concat(". Check value of \"#{current_field}\""), $ERROR_INFO.backtrace
     end
   end
 end

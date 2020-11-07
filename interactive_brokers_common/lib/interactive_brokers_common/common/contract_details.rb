@@ -57,52 +57,92 @@ module InteractiveBrokersCommon
     end
 
     def check_value_types!
-      unless contract.nil?
-        contract.is_a?(Contract) ? contract : Contract.new(contract)
-      end
+      current_field = :contract
+      (contract.is_a?(Contract) ? contract : Contract.new(contract)).check_value_types! unless contract.nil?
+      current_field = :market_name
       String(market_name) unless market_name.nil?
+      current_field = :min_tick
       Float(min_tick) unless min_tick.nil?
+      current_field = :price_magnifier
       Integer(price_magnifier) unless price_magnifier.nil?
+      current_field = :order_types
       String(order_types) unless order_types.nil?
+      current_field = :valid_exchanges
       String(valid_exchanges) unless valid_exchanges.nil?
+      current_field = :under_conid
       Integer(under_conid) unless under_conid.nil?
+      current_field = :long_name
       String(long_name) unless long_name.nil?
+      current_field = :contract_month
       String(contract_month) unless contract_month.nil?
+      current_field = :industry
       String(industry) unless industry.nil?
+      current_field = :category
       String(category) unless category.nil?
+      current_field = :subcategory
       String(subcategory) unless subcategory.nil?
+      current_field = :time_zone_id
       String(time_zone_id) unless time_zone_id.nil?
+      current_field = :trading_hours
       String(trading_hours) unless trading_hours.nil?
+      current_field = :liquid_hours
       String(liquid_hours) unless liquid_hours.nil?
+      current_field = :ev_rule
       String(ev_rule) unless ev_rule.nil?
+      current_field = :ev_multiplier
       Float(ev_multiplier) unless ev_multiplier.nil?
+      current_field = :md_size_multiplier
       Integer(md_size_multiplier) unless md_size_multiplier.nil?
+      current_field = :sec_id_list
       unless sec_id_list.nil?
-        sec_id_list.all? { |e| e.is_a?(TagValue) } ? sec_id_list : sec_id_list.map { |hash| TagValue.new(hash) }
+        (sec_id_list.all? { |e| e.is_a?(TagValue) } ? sec_id_list : sec_id_list.map { |hash| TagValue.new(hash) }).each(&:check_value_types!)
       end
+      current_field = :agg_group
       Integer(agg_group) unless agg_group.nil?
+      current_field = :under_symbol
       String(under_symbol) unless under_symbol.nil?
+      current_field = :under_sec_type
       String(under_sec_type) unless under_sec_type.nil?
+      current_field = :market_rule_ids
       String(market_rule_ids) unless market_rule_ids.nil?
+      current_field = :real_expiration_date
       String(real_expiration_date) unless real_expiration_date.nil?
+      current_field = :last_trade_time
       String(last_trade_time) unless last_trade_time.nil?
+      current_field = :cusip
       String(cusip) unless cusip.nil?
+      current_field = :ratings
       String(ratings) unless ratings.nil?
+      current_field = :desc_append
       String(desc_append) unless desc_append.nil?
+      current_field = :bond_type
       String(bond_type) unless bond_type.nil?
+      current_field = :coupon_type
       String(coupon_type) unless coupon_type.nil?
+      current_field = :callable
       !!callable unless callable.nil?
+      current_field = :putable
       !!putable unless putable.nil?
+      current_field = :coupon
       Float(coupon) unless coupon.nil?
+      current_field = :convertible
       !!convertible unless convertible.nil?
+      current_field = :maturity
       String(maturity) unless maturity.nil?
+      current_field = :issue_date
       String(issue_date) unless issue_date.nil?
+      current_field = :next_option_date
       String(next_option_date) unless next_option_date.nil?
+      current_field = :next_option_type
       String(next_option_type) unless next_option_type.nil?
+      current_field = :next_option_partial
       !!next_option_partial unless next_option_partial.nil?
+      current_field = :notes
       String(notes) unless notes.nil?
 
       true
+    rescue StandardError => e
+      raise $ERROR_INFO, e.message.concat(". Check value of \"#{current_field}\""), $ERROR_INFO.backtrace
     end
   end
 end

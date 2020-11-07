@@ -15,10 +15,14 @@ module InteractiveBrokersCommon
     end
 
     def check_value_types!
+      current_field = :price
       Float(price) unless price.nil?
+      current_field = :trigger_method
       Integer(trigger_method) unless trigger_method.nil?
 
       true
+    rescue StandardError => e
+      raise $ERROR_INFO, e.message.concat(". Check value of \"#{current_field}\""), $ERROR_INFO.backtrace
     end
   end
 end

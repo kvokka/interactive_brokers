@@ -52,6 +52,18 @@ module InteractiveBrokersGenerator
       # rubocop:enable Metrics/AbcSize
       # rubocop:enable Metrics/MethodLength
 
+      # do not want to patch array method somehow for this
+      def to_eval_ruby_check_types
+        case java_field.value_type
+        when /^com\.ib\.client\./
+          "(#{to_eval_ruby}).check_value_types!"
+        when "java.util.List"
+          "(#{to_eval_ruby}).each(&:check_value_types!)"
+        else
+          to_eval_ruby
+        end
+      end
+
       def to_eval_jruby
         case java_field.value_type
         when /^com\.ib\.client\./, "java.util.List"

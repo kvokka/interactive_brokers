@@ -177,152 +177,284 @@ module InteractiveBrokersCommon
     end
 
     def check_value_types!
+      current_field = :client_id
       Integer(client_id) unless client_id.nil?
+      current_field = :order_id
       Integer(order_id) unless order_id.nil?
+      current_field = :perm_id
       Integer(perm_id) unless perm_id.nil?
+      current_field = :parent_id
       Integer(parent_id) unless parent_id.nil?
+      current_field = :action
       String(action) unless action.nil?
+      current_field = :total_quantity
       Float(total_quantity) unless total_quantity.nil?
+      current_field = :display_size
       Integer(display_size) unless display_size.nil?
+      current_field = :order_type
       String(order_type) unless order_type.nil?
+      current_field = :lmt_price
       Float(lmt_price) unless lmt_price.nil?
+      current_field = :aux_price
       Float(aux_price) unless aux_price.nil?
+      current_field = :tif
       String(tif) unless tif.nil?
+      current_field = :account
       String(account) unless account.nil?
+      current_field = :settling_firm
       String(settling_firm) unless settling_firm.nil?
+      current_field = :clearing_account
       String(clearing_account) unless clearing_account.nil?
+      current_field = :clearing_intent
       String(clearing_intent) unless clearing_intent.nil?
+      current_field = :all_or_none
       !!all_or_none unless all_or_none.nil?
+      current_field = :block_order
       !!block_order unless block_order.nil?
+      current_field = :hidden
       !!hidden unless hidden.nil?
+      current_field = :outside_rth
       !!outside_rth unless outside_rth.nil?
+      current_field = :sweep_to_fill
       !!sweep_to_fill unless sweep_to_fill.nil?
+      current_field = :percent_offset
       Float(percent_offset) unless percent_offset.nil?
+      current_field = :trailing_percent
       Float(trailing_percent) unless trailing_percent.nil?
+      current_field = :trail_stop_price
       Float(trail_stop_price) unless trail_stop_price.nil?
+      current_field = :min_qty
       Integer(min_qty) unless min_qty.nil?
+      current_field = :good_after_time
       String(good_after_time) unless good_after_time.nil?
+      current_field = :good_till_date
       String(good_till_date) unless good_till_date.nil?
+      current_field = :oca_group
       String(oca_group) unless oca_group.nil?
+      current_field = :order_ref
       String(order_ref) unless order_ref.nil?
+      current_field = :rule80_a
       String(rule80_a) unless rule80_a.nil?
+      current_field = :oca_type
       Integer(oca_type) unless oca_type.nil?
+      current_field = :trigger_method
       Integer(trigger_method) unless trigger_method.nil?
+      current_field = :active_start_time
       String(active_start_time) unless active_start_time.nil?
+      current_field = :active_stop_time
       String(active_stop_time) unless active_stop_time.nil?
+      current_field = :fa_group
       String(fa_group) unless fa_group.nil?
+      current_field = :fa_method
       String(fa_method) unless fa_method.nil?
+      current_field = :fa_percentage
       String(fa_percentage) unless fa_percentage.nil?
+      current_field = :fa_profile
       String(fa_profile) unless fa_profile.nil?
+      current_field = :volatility
       Float(volatility) unless volatility.nil?
+      current_field = :volatility_type
       Integer(volatility_type) unless volatility_type.nil?
+      current_field = :continuous_update
       Integer(continuous_update) unless continuous_update.nil?
+      current_field = :reference_price_type
       Integer(reference_price_type) unless reference_price_type.nil?
+      current_field = :delta_neutral_order_type
       String(delta_neutral_order_type) unless delta_neutral_order_type.nil?
+      current_field = :delta_neutral_aux_price
       Float(delta_neutral_aux_price) unless delta_neutral_aux_price.nil?
+      current_field = :delta_neutral_con_id
       Integer(delta_neutral_con_id) unless delta_neutral_con_id.nil?
+      current_field = :delta_neutral_open_close
       String(delta_neutral_open_close) unless delta_neutral_open_close.nil?
+      current_field = :delta_neutral_short_sale
       !!delta_neutral_short_sale unless delta_neutral_short_sale.nil?
+      current_field = :delta_neutral_short_sale_slot
       Integer(delta_neutral_short_sale_slot) unless delta_neutral_short_sale_slot.nil?
+      current_field = :delta_neutral_designated_location
       String(delta_neutral_designated_location) unless delta_neutral_designated_location.nil?
+      current_field = :scale_init_level_size
       Integer(scale_init_level_size) unless scale_init_level_size.nil?
+      current_field = :scale_subs_level_size
       Integer(scale_subs_level_size) unless scale_subs_level_size.nil?
+      current_field = :scale_price_increment
       Float(scale_price_increment) unless scale_price_increment.nil?
+      current_field = :scale_price_adjust_value
       Float(scale_price_adjust_value) unless scale_price_adjust_value.nil?
+      current_field = :scale_price_adjust_interval
       Integer(scale_price_adjust_interval) unless scale_price_adjust_interval.nil?
+      current_field = :scale_profit_offset
       Float(scale_profit_offset) unless scale_profit_offset.nil?
+      current_field = :scale_auto_reset
       !!scale_auto_reset unless scale_auto_reset.nil?
+      current_field = :scale_init_position
       Integer(scale_init_position) unless scale_init_position.nil?
+      current_field = :scale_init_fill_qty
       Integer(scale_init_fill_qty) unless scale_init_fill_qty.nil?
+      current_field = :scale_random_percent
       !!scale_random_percent unless scale_random_percent.nil?
+      current_field = :scale_table
       String(scale_table) unless scale_table.nil?
+      current_field = :hedge_type
       String(hedge_type) unless hedge_type.nil?
+      current_field = :hedge_param
       String(hedge_param) unless hedge_param.nil?
+      current_field = :algo_strategy
       String(algo_strategy) unless algo_strategy.nil?
+      current_field = :algo_params
       unless algo_params.nil?
-        algo_params.all? { |e| e.is_a?(TagValue) } ? algo_params : algo_params.map { |hash| TagValue.new(hash) }
+        (algo_params.all? { |e| e.is_a?(TagValue) } ? algo_params : algo_params.map { |hash| TagValue.new(hash) }).each(&:check_value_types!)
       end
+      current_field = :algo_id
       String(algo_id) unless algo_id.nil?
+      current_field = :smart_combo_routing_params
       unless smart_combo_routing_params.nil?
-        smart_combo_routing_params.all? { |e| e.is_a?(TagValue) } ? smart_combo_routing_params : smart_combo_routing_params.map { |hash| TagValue.new(hash) }
+        (smart_combo_routing_params.all? { |e| e.is_a?(TagValue) } ? smart_combo_routing_params : smart_combo_routing_params.map { |hash| TagValue.new(hash) }).each(&:check_value_types!)
       end
+      current_field = :order_combo_legs
       unless order_combo_legs.nil?
-        order_combo_legs.all? { |e| e.is_a?(OrderComboLeg) } ? order_combo_legs : order_combo_legs.map { |hash| OrderComboLeg.new(hash) }
+        (order_combo_legs.all? { |e| e.is_a?(OrderComboLeg) } ? order_combo_legs : order_combo_legs.map { |hash| OrderComboLeg.new(hash) }).each(&:check_value_types!)
       end
+      current_field = :what_if
       !!what_if unless what_if.nil?
+      current_field = :transmit
       !!transmit unless transmit.nil?
+      current_field = :override_percentage_constraints
       !!override_percentage_constraints unless override_percentage_constraints.nil?
+      current_field = :open_close
       String(open_close) unless open_close.nil?
+      current_field = :origin
       Integer(origin) unless origin.nil?
+      current_field = :short_sale_slot
       Integer(short_sale_slot) unless short_sale_slot.nil?
+      current_field = :designated_location
       String(designated_location) unless designated_location.nil?
+      current_field = :exempt_code
       Integer(exempt_code) unless exempt_code.nil?
+      current_field = :delta_neutral_settling_firm
       String(delta_neutral_settling_firm) unless delta_neutral_settling_firm.nil?
+      current_field = :delta_neutral_clearing_account
       String(delta_neutral_clearing_account) unless delta_neutral_clearing_account.nil?
+      current_field = :delta_neutral_clearing_intent
       String(delta_neutral_clearing_intent) unless delta_neutral_clearing_intent.nil?
+      current_field = :discretionary_amt
       Float(discretionary_amt) unless discretionary_amt.nil?
+      current_field = :e_trade_only
       !!e_trade_only unless e_trade_only.nil?
+      current_field = :firm_quote_only
       !!firm_quote_only unless firm_quote_only.nil?
+      current_field = :nbbo_price_cap
       Float(nbbo_price_cap) unless nbbo_price_cap.nil?
+      current_field = :opt_out_smart_routing
       !!opt_out_smart_routing unless opt_out_smart_routing.nil?
+      current_field = :auction_strategy
       Integer(auction_strategy) unless auction_strategy.nil?
+      current_field = :starting_price
       Float(starting_price) unless starting_price.nil?
+      current_field = :stock_ref_price
       Float(stock_ref_price) unless stock_ref_price.nil?
+      current_field = :delta
       Float(delta) unless delta.nil?
+      current_field = :stock_range_lower
       Float(stock_range_lower) unless stock_range_lower.nil?
+      current_field = :stock_range_upper
       Float(stock_range_upper) unless stock_range_upper.nil?
+      current_field = :basis_points
       Float(basis_points) unless basis_points.nil?
+      current_field = :basis_points_type
       Integer(basis_points_type) unless basis_points_type.nil?
+      current_field = :not_held
       !!not_held unless not_held.nil?
+      current_field = :order_misc_options
       unless order_misc_options.nil?
-        order_misc_options.all? { |e| e.is_a?(TagValue) } ? order_misc_options : order_misc_options.map { |hash| TagValue.new(hash) }
+        (order_misc_options.all? { |e| e.is_a?(TagValue) } ? order_misc_options : order_misc_options.map { |hash| TagValue.new(hash) }).each(&:check_value_types!)
       end
+      current_field = :solicited
       !!solicited unless solicited.nil?
+      current_field = :randomize_size
       !!randomize_size unless randomize_size.nil?
+      current_field = :randomize_price
       !!randomize_price unless randomize_price.nil?
+      current_field = :reference_contract_id
       Integer(reference_contract_id) unless reference_contract_id.nil?
+      current_field = :pegged_change_amount
       Float(pegged_change_amount) unless pegged_change_amount.nil?
+      current_field = :is_pegged_change_amount_decrease
       !!is_pegged_change_amount_decrease unless is_pegged_change_amount_decrease.nil?
+      current_field = :reference_change_amount
       Float(reference_change_amount) unless reference_change_amount.nil?
+      current_field = :reference_exchange_id
       String(reference_exchange_id) unless reference_exchange_id.nil?
+      current_field = :adjusted_order_type
       unless adjusted_order_type.nil?
-        adjusted_order_type.is_a?(OrderType) ? adjusted_order_type : OrderType.new(adjusted_order_type)
+        (adjusted_order_type.is_a?(OrderType) ? adjusted_order_type : OrderType.new(adjusted_order_type)).check_value_types!
       end
+      current_field = :trigger_price
       Float(trigger_price) unless trigger_price.nil?
+      current_field = :adjusted_stop_price
       Float(adjusted_stop_price) unless adjusted_stop_price.nil?
+      current_field = :adjusted_stop_limit_price
       Float(adjusted_stop_limit_price) unless adjusted_stop_limit_price.nil?
+      current_field = :adjusted_trailing_amount
       Float(adjusted_trailing_amount) unless adjusted_trailing_amount.nil?
+      current_field = :adjustable_trailing_unit
       Integer(adjustable_trailing_unit) unless adjustable_trailing_unit.nil?
+      current_field = :lmt_price_offset
       Float(lmt_price_offset) unless lmt_price_offset.nil?
+      current_field = :conditions
       unless conditions.nil?
-        conditions.all? { |e| e.is_a?(OrderCondition) } ? conditions : conditions.map { |hash| OrderCondition.new(hash) }
+        (conditions.all? { |e| e.is_a?(OrderCondition) } ? conditions : conditions.map { |hash| OrderCondition.new(hash) }).each(&:check_value_types!)
       end
+      current_field = :conditions_cancel_order
       !!conditions_cancel_order unless conditions_cancel_order.nil?
+      current_field = :conditions_ignore_rth
       !!conditions_ignore_rth unless conditions_ignore_rth.nil?
+      current_field = :model_code
       String(model_code) unless model_code.nil?
+      current_field = :ext_operator
       String(ext_operator) unless ext_operator.nil?
+      current_field = :soft_dollar_tier
       unless soft_dollar_tier.nil?
-        soft_dollar_tier.is_a?(SoftDollarTier) ? soft_dollar_tier : SoftDollarTier.new(soft_dollar_tier)
+        (soft_dollar_tier.is_a?(SoftDollarTier) ? soft_dollar_tier : SoftDollarTier.new(soft_dollar_tier)).check_value_types!
       end
+      current_field = :cash_qty
       Float(cash_qty) unless cash_qty.nil?
+      current_field = :mifid2_decision_maker
       String(mifid2_decision_maker) unless mifid2_decision_maker.nil?
+      current_field = :mifid2_decision_algo
       String(mifid2_decision_algo) unless mifid2_decision_algo.nil?
+      current_field = :mifid2_execution_trader
       String(mifid2_execution_trader) unless mifid2_execution_trader.nil?
+      current_field = :mifid2_execution_algo
       String(mifid2_execution_algo) unless mifid2_execution_algo.nil?
+      current_field = :dont_use_auto_price_for_hedge
       !!dont_use_auto_price_for_hedge unless dont_use_auto_price_for_hedge.nil?
+      current_field = :is_oms_container
       !!is_oms_container unless is_oms_container.nil?
+      current_field = :discretionary_up_to_limit_price
       !!discretionary_up_to_limit_price unless discretionary_up_to_limit_price.nil?
+      current_field = :auto_cancel_date
       String(auto_cancel_date) unless auto_cancel_date.nil?
+      current_field = :filled_quantity
       Float(filled_quantity) unless filled_quantity.nil?
+      current_field = :ref_futures_con_id
       Integer(ref_futures_con_id) unless ref_futures_con_id.nil?
+      current_field = :auto_cancel_parent
       !!auto_cancel_parent unless auto_cancel_parent.nil?
+      current_field = :shareholder
       String(shareholder) unless shareholder.nil?
+      current_field = :imbalance_only
       !!imbalance_only unless imbalance_only.nil?
+      current_field = :route_marketable_to_bbo
       !!route_marketable_to_bbo unless route_marketable_to_bbo.nil?
+      current_field = :parent_perm_id
       Integer(parent_perm_id) unless parent_perm_id.nil?
+      current_field = :use_price_mgmt_algo
       !!use_price_mgmt_algo unless use_price_mgmt_algo.nil?
 
       true
+    rescue StandardError => e
+      raise $ERROR_INFO, e.message.concat(". Check value of \"#{current_field}\""), $ERROR_INFO.backtrace
     end
   end
 end
