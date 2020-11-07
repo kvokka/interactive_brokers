@@ -15,21 +15,21 @@ module InteractiveBrokersGenerator
 
     delegate :config, to: :class
 
-    attr_reader :common_code_dir, :server_code_dir, :verbose
+    attr_reader :common_code_dir, :proxy_code_dir, :verbose
 
     # @param [String] common_code_dir
-    # @param [String] server_code_dir
-    def initialize(common_code_dir:, server_code_dir:, verbose: true)
+    # @param [String] proxy_code_dir
+    def initialize(common_code_dir:, proxy_code_dir:, verbose: true)
       @common_code_dir = Pathname.new(common_code_dir)
-      @server_code_dir = Pathname.new(server_code_dir)
+      @proxy_code_dir = Pathname.new(proxy_code_dir)
       @verbose = verbose
 
       import_java_classes
     end
 
-    # Generate client files and server class extensions
+    # Generate client files and proxy class extensions
     #
-    # It will format the generated code with {https://github.com/ruby-formatter/rufo Rufo}.
+    # It will format the generated code with rubocop.
     #
     # @see ClassSourceGenerator#ruby_class_source
     # @see ClassSourceGenerator#ib_class_extension_source
@@ -43,9 +43,9 @@ module InteractiveBrokersGenerator
 
     def prepare_paths
       FileUtils.mkdir_p common_code_dir, verbose: verbose
-      FileUtils.rm common_code_dir.join("*.rb"), verbose: verbose, force: true
-      FileUtils.mkdir_p server_code_dir, verbose: verbose
-      FileUtils.rm server_code_dir.join("*.rb"), verbose: verbose, force: true
+      FileUtils.rm Dir[common_code_dir.join("*.rb")], verbose: verbose, force: true
+      FileUtils.mkdir_p proxy_code_dir, verbose: verbose
+      FileUtils.rm Dir[proxy_code_dir.join("*.rb")], verbose: verbose, force: true
     end
 
     def import_java_classes
@@ -68,18 +68,24 @@ module InteractiveBrokersGenerator
       ib_class = Java::ComIbClient.const_get(class_name)
       generator = ClassSourceGenerator.new(ib_class)
 
-      file_name = "#{class_name.underscore}.rb"
-      generate_client_file(generator, file_name)
-      generate_server_file(generator, file_name)
+      ruby_class = class_name.underscore
+      file_name = "#{ruby_class}.rb"
+      generate_common_file(generator, file_name)
+      append_common_file_in_all(ruby_class)
+      generate_proxy_file(generator, file_name)
     end
 
-    def generate_client_file(generator, file_name)
+    def append_common_file_in_all(ruby_class)
+      File.open(File.join(common_code_dir, "all.rb"), "a") { |f| f.puts("require_relative '#{ruby_class}'") }
+    end
+
+    def generate_common_file(generator, file_name)
       target_file_path = File.join(common_code_dir, file_name)
       write_file(generator.ruby_class_source, target_file_path)
     end
 
-    def generate_server_file(generator, file_name)
-      target_file_path = File.join(server_code_dir, file_name)
+    def generate_proxy_file(generator, file_name)
+      target_file_path = File.join(proxy_code_dir, file_name)
       write_file(generator.ib_class_extension_source, target_file_path)
     end
 
@@ -89,7 +95,7 @@ module InteractiveBrokersGenerator
     end
 
     def format_code
-      [server_code_dir, common_code_dir].each do |dir|
+      [proxy_code_dir, common_code_dir].each do |dir|
         puts "Formatting #{dir}..."
         system "bundle exec rubocop -A #{dir}"
       end

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require "interactive_brokers_common/version"
-
-Dir[File.expand_path("lib/interactive_brokers_common/common/**/*.rb")].sort.each { |f| require f }
+require "interactive_brokers_common/common/all"
 
 module InteractiveBrokersCommon
 end

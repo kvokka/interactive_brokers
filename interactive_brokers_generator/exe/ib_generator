@@ -13,7 +13,7 @@ require "interactive_brokers_generator"
 
 common_code_dir = File.join(__dir__, "..", "..", "interactive_brokers_common", "lib",
                             "interactive_brokers_common", "common")
-server_code_dir = File.join(__dir__, "..", "..", "interactive_brokers_proxy", "lib",
-                            "interactive_brokers_proxy", "app", "java_ext")
+proxy_code_dir = File.join(__dir__, "..", "..", "interactive_brokers_proxy", "lib",
+                           "interactive_brokers_proxy", "app", "java_ext")
 InteractiveBrokersGenerator::ApiClassFilesGenerator.new(common_code_dir: common_code_dir,
-                                                        server_code_dir: server_code_dir).generate_all
+                                                        proxy_code_dir: proxy_code_dir).generate_all
