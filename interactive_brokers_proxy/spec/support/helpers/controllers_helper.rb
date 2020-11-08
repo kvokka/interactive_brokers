@@ -7,6 +7,16 @@ module RSpec
         def app
           ::APP
         end
+
+        # next_valid_id from TWS sucks, use own replacement
+        def next_valid_id
+          File.open("tmp/next_valid_id", "a+") do |f|
+            next_value = f.gets.to_i + 1
+            f.truncate(0)
+            f.puts(next_value)
+            next_value
+          end
+        end
       end
     end
   end

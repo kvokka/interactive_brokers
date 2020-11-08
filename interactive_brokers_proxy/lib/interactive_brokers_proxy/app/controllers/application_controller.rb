@@ -1,19 +1,27 @@
 # frozen_string_literal: true
 
-require "pathname"
-
 class ApplicationController < Sinatra::Base
-  helpers ApplicationHelper
-
   set :environments, %w[test development production]
   set :root,         Pathname.new(__dir__).parent.parent.parent.parent.to_s
-  set(:common_registry) { InteractiveBrokersProxy.common_registry }
-  set(:req_id_registry) { InteractiveBrokersProxy.req_id_registry }
   set(:gateway_client) { InteractiveBrokersProxy::ProxyService.client }
+  set :default_content_type, "application/x-ndjson"
+  # set :show_exceptions, :after_handler
 
-  enable :logging, :dump_errors
+  disable :dump_errors # we manage it in errors block, see https://github.com/sinatra/sinatra/issues/1664
+  enable :logging
 
-  file = File.new("#{settings.root}/log/#{settings.environment}.log", "a+")
-  file.sync = true
-  use Rack::CommonLogger, file
+  set(:logger) { InteractiveBrokersProxy::Config.logger }
+  configure do
+    use ::Rack::CommonLogger, settings.logger
+  end
+
+  error do
+    logger.error({ error: {
+      from: :gem,
+      route: env["sinatra.route"],
+      params: env["sinatra.error.params"],
+      env: env["sinatra.error"],
+      message: env["sinatra.error"].message
+    } }.to_s)
+  end
 end

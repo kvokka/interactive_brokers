@@ -18,6 +18,6 @@ module InteractiveBrokersCommon
   end
 end
 
-[String, Integer, Float, NilClass, TrueClass, FalseClass, Throwable].each do |klass|
+[String, Hash, Integer, Float, NilClass, TrueClass, FalseClass, Throwable, Java::JavaLang::Object].each do |klass|
   klass.include InteractiveBrokersCommon::CoreExt::IdempotentType
 end

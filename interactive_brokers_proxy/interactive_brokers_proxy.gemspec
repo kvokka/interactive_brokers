@@ -24,12 +24,11 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency "activesupport", ">= 6.0.0", "< 7.0"
-  spec.add_dependency "commander", ">= 4.5.0", "< 5.0"
+  spec.add_dependency "concurrent-ruby-edge", "~> 0.6.0"
   spec.add_dependency "interactive_brokers_common", version
   spec.add_dependency "puma", "~> 5.0.0"
   spec.add_dependency "rake", ">= 13.0"
   spec.add_dependency "sinatra", "~> 2.1.0"
+  spec.add_dependency "sinatra-contrib", "~> 2.1.0"
   spec.add_dependency "sinatra-router", "~> 0.2.4"
-
-  spec.add_development_dependency "amazing_print", ">= 1.2.0"
 end

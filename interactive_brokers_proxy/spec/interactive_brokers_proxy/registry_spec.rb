@@ -34,6 +34,29 @@ RSpec.describe InteractiveBrokersProxy::Registry do
         )
       end
     end
+
+    context "when calc default value" do
+      subject do
+        described_class.new(name: "reg", key_class: Symbol) do
+          @a ||= "f"
+          @a += "o"
+        end
+      end
+
+      before { subject.add_uniq_record!(:some_key) }
+
+      it { expect(subject[:some_key]).to eq "fo" }
+
+      it("use the same object on the second invocation") do
+        subject[:some_key]
+        expect(subject[:some_key]).to eq "fo"
+      end
+
+      it("use new object with invocation on another key") do
+        subject[:some_key]
+        expect(subject[:other_key]).to eq "foo"
+      end
+    end
   end
 
   describe "#[]=" do

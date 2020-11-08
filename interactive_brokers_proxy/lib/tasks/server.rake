@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-ENV["port"] ||= "6000"
-
 namespace :server do
   desc "start server"
   task :start do

@@ -16,12 +16,18 @@ RSpec/NamedSubject:
 RSpec/DescribeClass:
   Enabled: false
 
+Style/DoubleNegation:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
 AllCops:
   TargetRubyVersion: 2.5
   NewCops: enable
+  Exclude:
+    - 'interactive_brokers_proxy/tmp/**/*'
+    - 'tmp/**/*'
 
 Metrics/CyclomaticComplexity:
   Max: 10
@@ -35,9 +41,11 @@ Metrics/BlockLength:
     - 'interactive_brokers_generator/spec/**/*'
     - 'interactive_brokers_proxy/spec/**/*'
     - 'interactive_brokers_common/spec/**/*'
+    - '**/*.gemspec'
 
 RSpec/NestedGroups:
   Exclude:
+    - 'interactive_brokers_proxy/spec/interactive_brokers_proxy/java_method_dynamic_converter_spec.rb'
     - 'interactive_brokers_common/spec/interactive_brokers_common/common/**/*'
 
 RSpec/BeforeAfterAll:
@@ -56,3 +64,15 @@ RSpec/MultipleExpectations:
 RSpec/EmptyExampleGroup:
   Exclude:
     - 'interactive_brokers_common/spec/interactive_brokers_common/common/**/*.rb'
+
+RSpec/MultipleMemoizedHelpers:
+  Exclude:
+    - 'interactive_brokers_proxy/spec/interactive_brokers_proxy/java_method_dynamic_converter_spec.rb'
+
+Style/GlobalVars:
+  Exclude:
+    - 'interactive_brokers_proxy/features/support/env.rb'
+
+Naming/MethodName:
+  Exclude:
+    - 'interactive_brokers_proxy/lib/interactive_brokers_proxy/wrapper.rb'

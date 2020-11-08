@@ -19,7 +19,7 @@ module InteractiveBrokersProxy
       @proxy_service = proxy_service
     end
 
-    delegate :client_socket, :logger, to: :proxy_service
+    delegate :client_socket, :logger, :connected?, to: :proxy_service
 
     # generate methods forwarder to JAVA socket only if it was not defined earlier
     # rubocop:disable Metrics/MethodLength
@@ -29,11 +29,11 @@ module InteractiveBrokersProxy
         next if respond_to?(ruby_method_name)
 
         class_eval <<-RUBY, __FILE__, __LINE__ + 1
-          def #{ruby_method_name}(*arguments)                                                        # def req_contract_details(*arguments)
-            client_socket.#{java_method.name} *arguments.map(&:to_ib)                                #   client_socket.reqContractDetails *arguments.map(&:to_ib)
-            logger.debug "Received '#{ruby_method_name}' with arguments \#{ruby_arguments.inspect}"  #   logger.debug "Received 'req_contract_details' with arguments \#{ruby_arguments.inspect}"
-            nil                                                                                      #   nil
-          end                                                                                        # end
+          def #{ruby_method_name}(*arguments)                                                                           # def req_contract_details(*arguments)
+            logger.debug "Received request '#{ruby_method_name}' with arguments \#{arguments.inspect}"                  #   logger.debug "Received 'req_contract_details' with arguments \#{ruby_arguments.inspect}"
+            client_socket.#{java_method.name} *arguments.map(&:to_ib)                                                   #   client_socket.reqContractDetails *arguments.map(&:to_ib)
+            nil                                                                                                         #   nil
+          end                                                                                                           # end
         RUBY
       end
     end

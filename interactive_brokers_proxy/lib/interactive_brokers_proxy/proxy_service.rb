@@ -18,7 +18,7 @@ module InteractiveBrokersProxy
     attr_reader :gateway_host, :gateway_port, :client_id, :logger
 
     class << self
-      delegate :connected?, :client, to: :instance
+      delegate :connected?, :client, :stop, to: :instance
     end
 
     # @param [String] gateway_host Hostname for the IB client app (gateway or TWS). Default +localhost+
@@ -26,13 +26,13 @@ module InteractiveBrokersProxy
     # @param [Integer] Interactive brokers client id. Default +2+
     # @param [Logger] Logger instance. Default +Logger.new(STDOUT)+
     def initialize(**options)
-      @gateway_host   = options[:gateway_host]   || ENV["GATEWAY_HOST"]      || DEFAULT_GATEWAY_HOST
-      @gateway_port   = options[:gateway_port]   || ENV["GATEWAY_PORT"]      || DEFAULT_GATEWAY_PORT
-      @client_id      = options[:client_id]      || ENV["GATEWAY_CLIENT_ID"] || DEFAULT_CLIENT_ID
-      @logger         = options[:logger]         || default_logger
+      @gateway_host   = options[:gateway_host]    || ENV["GATEWAY_HOST"]      || DEFAULT_GATEWAY_HOST
+      @gateway_port   = (options[:gateway_port]   || ENV["GATEWAY_PORT"]      || DEFAULT_GATEWAY_PORT).to_i
+      @client_id      = (options[:client_id]      || ENV["GATEWAY_CLIENT_ID"] || DEFAULT_CLIENT_ID).to_i
     end
 
     delegate :client_socket, to: :wrapper
+    delegate :logger, to: :'InteractiveBrokersProxy::Config'
 
     # Check the connection with the gateway. Do not mess with internet connection
     # Even if internet became down we might be still connected with gateway
@@ -50,6 +50,12 @@ module InteractiveBrokersProxy
       @client = Client.new(self)
     end
 
+    # Clean up all variables & exit background threads
+    def stop
+      reader.stop
+      @client = @wrapper = @reader = nil
+    end
+
     private
 
     delegate :signal, to: :wrapper
@@ -65,8 +71,10 @@ module InteractiveBrokersProxy
       self
     end
 
-    # Python API does not use it. Do we need it? Maybe it is just a useless boilerplate?
+    # rubocop:disable Metrics/MethodLength
     def start_gw_message_processing_thread
+      reader
+
       Thread.new do
         while client_socket.isConnected
           signal.waitForSignal
@@ -78,6 +86,7 @@ module InteractiveBrokersProxy
         end
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def reader
       @reader ||= EReader.new(client_socket, signal).tap(&:start)
@@ -91,9 +100,6 @@ module InteractiveBrokersProxy
       client_socket.eConnect(gateway_host, gateway_port, client_id)
     end
 
-    def default_logger
-      require "logger"
-      Logger.new($stdout)
-    end
+    def default_logger; end
   end
 end

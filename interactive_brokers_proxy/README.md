@@ -22,9 +22,17 @@ All the setting can be set with environment variables:
 
 ##### application settings
 
+By default it is assumed, that the gateway is running **paper** trading 
+on default settings
+
 * GATEWAY_HOST = localhost
 * GATEWAY_PORT = 4002
 * GATEWAY_CLIENT_ID = 2
+
+## Testing
+
+* `bundle exec rake spec`
+* `bundle exec rake features` # require running Gateway in **paper trading** mode
 
 ## License
 

@@ -3,11 +3,14 @@
 ENV["RACK_ENV"] = "test"
 
 require "bundler/setup"
-require "impersonator"
 require "rack/test"
 require "interactive_brokers_proxy"
 
 RSpec.configure do |config|
+  config.after(:suite) do
+    InteractiveBrokersProxy::ProxyService.stop
+  end
+
   config.include Rack::Test::Methods
 
   config.filter_run :focus

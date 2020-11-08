@@ -50,10 +50,6 @@ Metrics/CyclomaticComplexity:
     - 'interactive_brokers_common/lib/interactive_brokers_common/common/**/*'
     - 'interactive_brokers_proxy/lib/interactive_brokers_proxy/app/java_ext/**/*'
 
-Style/DoubleNegation:
-  Exclude:
-    - 'interactive_brokers_common/lib/interactive_brokers_common/common/**/*'
-
 Lint/StructNewOverride:
   Exclude:
     - 'interactive_brokers_common/lib/interactive_brokers_common/common/**/*'
