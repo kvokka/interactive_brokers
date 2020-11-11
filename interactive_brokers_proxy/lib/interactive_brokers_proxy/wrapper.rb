@@ -29,7 +29,7 @@ module InteractiveBrokersProxy
 
     def contractDetailsEnd(req_id)
       super
-      InteractiveBrokersProxy.req_id_registry.delete(req_id)&.close
+      InteractiveBrokersProxy.req_id_registry.unregister(req_id)&.close
     end
 
     # rubocop:disable Metrics/MethodLength

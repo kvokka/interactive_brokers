@@ -26,8 +26,11 @@ AllCops:
   TargetRubyVersion: 2.5
   NewCops: enable
   Exclude:
-    - 'interactive_brokers_proxy/tmp/**/*'
+    - 'node_modules/**/*'
     - 'tmp/**/*'
+    - 'vendor/**/*'
+    - '.git/**/*'
+    - 'interactive_brokers_proxy/tmp/**/*'
 
 Metrics/CyclomaticComplexity:
   Max: 10
@@ -46,6 +49,7 @@ Metrics/BlockLength:
 RSpec/NestedGroups:
   Exclude:
     - 'interactive_brokers_proxy/spec/interactive_brokers_proxy/java_method_dynamic_converter_spec.rb'
+    - 'interactive_brokers_proxy/spec/interactive_brokers_proxy/registry_spec.rb'
     - 'interactive_brokers_common/spec/interactive_brokers_common/common/**/*'
 
 RSpec/BeforeAfterAll:

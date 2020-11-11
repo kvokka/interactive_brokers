@@ -15,21 +15,21 @@ RSpec.describe InteractiveBrokersProxy::Registry do
     end
   end
 
-  describe "#add_uniq_record!" do
+  describe "#register" do
     context "with uniq record" do
-      before { subject.add_uniq_record!(:foo, 42) }
+      before { subject.register(:foo, 42) }
 
       it "does not raise an error" do
-        subject.add_uniq_record! :bar, 23
+        subject.register :bar, 23
         expect { subject }.not_to raise_error
       end
 
       it "raises an error if already exist" do
-        expect { subject.add_uniq_record!(:foo, 23) }.to raise_error described_class::RecordAlreadyExistsError
+        expect { subject.register(:foo, 23) }.to raise_error described_class::RecordAlreadyExistsError
       end
 
       it "raises an error if key class is wrong" do
-        expect { subject.add_uniq_record!("string instead of symbol", 23) }.to(
+        expect { subject.register("string instead of symbol", 23) }.to(
           raise_error described_class::WrongKeyClassError
         )
       end
@@ -43,7 +43,7 @@ RSpec.describe InteractiveBrokersProxy::Registry do
         end
       end
 
-      before { subject.add_uniq_record!(:some_key) }
+      before { subject.register(:some_key) }
 
       it { expect(subject[:some_key]).to eq "fo" }
 
@@ -59,9 +59,44 @@ RSpec.describe InteractiveBrokersProxy::Registry do
     end
   end
 
-  describe "#[]=" do
-    it "is private" do
-      expect(subject.private_methods).to include :[]=
+  describe "#unregister" do
+    before { subject.register(:foo, "bar") }
+
+    context "with 1 argument" do
+      it("return removed value") { expect(subject.unregister(:foo)).to eq "bar" }
+
+      it("remove the value") do
+        subject.unregister(:foo)
+        expect(subject.keys).not_to include :foo
+      end
+    end
+
+    context "with 2 arguments" do
+      context "with second argument match" do
+        it("return removed value") { expect(subject.unregister(:foo, "bar")).to eq "bar" }
+
+        it("remove the value") do
+          subject.unregister(:foo, "bar")
+          expect(subject.keys).not_to include :foo
+        end
+      end
+
+      context "with second argument not match" do
+        it("return nil") { expect(subject.unregister(:foo, "another")).to be_nil }
+
+        it("do not remove the value") do
+          subject.unregister(:foo, "another")
+          expect(subject[:foo]).to eq "bar"
+        end
+      end
+    end
+  end
+
+  %i[[]= merge! transform_keys! delete delete_if].each do |m|
+    describe "##{m}" do
+      it "is private" do
+        expect(subject.private_methods).to include m
+      end
     end
   end
 

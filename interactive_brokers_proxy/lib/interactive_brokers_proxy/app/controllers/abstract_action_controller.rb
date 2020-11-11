@@ -30,7 +30,7 @@ class AbstractActionController < ApplicationController
       inject_in_supported_methods_registry
       post("/#{api_action_name}", provides: default_content_type) do
         settings.converter.invoke_java_method(*api_action_args)
-        body settings.registry.add_uniq_record!(registry_key, Concurrent::Channel.new(capacity: 1_000))
+        body settings.registry.register(registry_key, Concurrent::Channel.new(capacity: 1_000))
       end
     end
   end
