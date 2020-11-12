@@ -28,6 +28,7 @@ on default settings
 * GATEWAY_HOST = localhost
 * GATEWAY_PORT = 4002
 * GATEWAY_CLIENT_ID = 2
+* LOG_LEVEL = 1
 
 ## Testing
 
