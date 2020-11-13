@@ -5,6 +5,7 @@ Bundler.require(:default, ENV.fetch("RACK_ENV", "development"))
 
 require "active_support/core_ext"
 require "concurrent-edge"
+require "concurrent/streaming_channel"
 require "pathname"
 
 require "interactive_brokers_common"

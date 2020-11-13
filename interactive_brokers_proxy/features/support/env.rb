@@ -3,6 +3,7 @@
 ENV["RACK_ENV"] = "test"
 ENV["TEMP_PATH"] ||= "tmp"
 ENV["TEST_APP_PORT"] ||= "3334"
+ENV["DEFAULT_TIMEOUT"] = "1"
 
 require "interactive_brokers_proxy"
 require "typhoeus"

@@ -5,6 +5,8 @@ class ApplicationController < Sinatra::Base
   set :root,         Pathname.new(__dir__).parent.parent.parent.parent.to_s
   set(:gateway_client) { InteractiveBrokersProxy::ProxyService.client }
   set :default_content_type, "application/x-ndjson"
+  set(:default_timeout) { Integer ENV.fetch("DEFAULT_TIMEOUT", "5") }
+  set :default_channel_capacity, 1000
   # set :show_exceptions, :after_handler
 
   disable :dump_errors # we manage it in errors block, see https://github.com/sinatra/sinatra/issues/1664
