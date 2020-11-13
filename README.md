@@ -55,12 +55,12 @@ functions will be the same.
 
 ### Functions with ID
 
+* [x] reqContractDetails
 * [ ] reqMktData
 * [ ] cancelMktData
 * [ ] placeOrder
 * [ ] cancelOrder
 * [ ] reqExecutions
-* [ ] reqContractDetails
 * [ ] reqMktDepth
 * [ ] cancelMktDepth
 * [ ] reqHistoricalData

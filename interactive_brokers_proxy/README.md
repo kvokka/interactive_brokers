@@ -12,7 +12,7 @@ gem 'interactive_brokers_proxy'
 
 run server with `bendle exec rake server:start`
 
-All the setting can be set with environment variables:
+All the settings can be done with environment variables:
 
 ##### web server settings
 

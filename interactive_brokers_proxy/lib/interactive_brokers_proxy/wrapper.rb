@@ -46,7 +46,7 @@ module InteractiveBrokersProxy
       }
       InteractiveBrokersProxy.req_id_registry[req_id] << json(payload) if req_id.is_a?(Integer) && req_id.positive?
     ensure
-      InteractiveBrokersProxy.req_id_registry[req_id].close if req_id.is_a?(Integer) && req_id.positive?
+      InteractiveBrokersProxy.req_id_registry[req_id].try(:close) if req_id.is_a?(Integer) && req_id.positive?
     end
     # rubocop:enable Metrics/MethodLength
 

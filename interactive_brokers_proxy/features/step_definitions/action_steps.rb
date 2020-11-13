@@ -3,7 +3,7 @@
 Given(/^Add to payload (\w+)$/) do |arg, *rest|
   @payload ||= []
   optional_table = rest.first
-  next (@payload << next_valid_id) if arg == "next_valid_id"
+  next (@payload << (@id = next_valid_id)) if arg == "next_valid_id"
   next (@payload << arg) if optional_table&.rows&.empty?
 
   @payload << optional_table.rows.to_h
@@ -22,8 +22,14 @@ Then(/Is a valid JSON/) do
   expect(@responce_json).to be_a Hash
 end
 
-Then(/Nested in \[(\w+)\] hash include/) do |nested, table|
+Then(/Id in \[([,\w]+)\] match/) do |nested|
+  expect(@responce_json.dig(*nested.split(","))).to eq @id
+end
+
+Then(/Nested in \[([,\w]+)\] hash include/) do |nested, table|
   h = @responce_json.dig(*nested.split(","))
   expect(h).to be_a Hash
-  expect(OpenStruct.new(h)).to have_attributes(table.rows.to_h)
+  table.rows.each do |k, v|
+    expect(h[k].to_s).to eq v
+  end
 end

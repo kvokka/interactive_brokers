@@ -29,8 +29,10 @@ class AbstractActionController < ApplicationController
     def action
       inject_in_supported_methods_registry
       post("/#{api_action_name}", provides: default_content_type) do
-        settings.converter.invoke_java_method(*api_action_args)
-        body settings.registry.register(registry_key, new_channel)
+        settings.registry.register(registry_key, new_channel).tap do |channel|
+          settings.converter.invoke_java_method(*api_action_args)
+          body channel
+        end
       end
     end
   end
@@ -54,9 +56,8 @@ class AbstractActionController < ApplicationController
         ~Concurrent::Channel.timer(timeout)
         next if chan.started?
 
-        error_message = "Callback for #{self} was terminated by timeout: #{timeout}s"
-        settings.logger.debug error_message
-        chan << JSON.dump({ error: { from: :app, message: error_message } })
+        settings.logger.debug "Callback for #{self} was terminated by timeout: #{timeout}s"
+        chan << JSON.dump({ error: { from: :app, message: "terminated callback" }.merge(to_h) })
         chan.close
       end
       channel.after_each_callbacks << lambda { |chan|
@@ -82,8 +83,14 @@ class AbstractActionController < ApplicationController
     raise NotImplementedError
   end
 
+  def to_h
+    { class: self.class.name,
+      action: settings.api_action_name,
+      registry: settings.registry.name,
+      registry_key: registry_key }
+  end
+
   def to_s
-    "class: #{self.class.name}, action: #{settings.api_action_name}, "\
-    "registry: #{settings.registry.name}, registry_key: #{registry_key}"
+    to_h.map { |k, v| "#{k}: #{v.inspect}" }.join(", ")
   end
 end

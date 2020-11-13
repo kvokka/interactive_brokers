@@ -7,14 +7,9 @@ module InteractiveBrokersProxy
       @common_registry ||= Registry.new(name: :common, key_class: Symbol, observer: supported_methods_registry)
     end
 
-    # All channels, which are scoped by request ID
+    # All channels, which are scoped by request ID (or order ID, we treat them equally)
     def req_id_registry
       @req_id_registry ||= Registry.new(name: :req_id, key_class: Integer, observer: supported_methods_registry)
-    end
-
-    # All channels, which are scoped by order ID
-    def order_id_registry
-      @order_id_registry ||= Registry.new(name: :order_id, key_class: Integer, observer: supported_methods_registry)
     end
 
     # Convenient way to see the list of methods which are already supported

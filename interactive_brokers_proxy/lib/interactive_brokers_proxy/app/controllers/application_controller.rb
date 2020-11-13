@@ -17,13 +17,15 @@ class ApplicationController < Sinatra::Base
     use ::Rack::CommonLogger, settings.logger
   end
 
-  error do
-    logger.error({ error: {
+  error ArgumentError, TypeError do
+    message = { error: {
       from: :gem,
       route: env["sinatra.route"],
       params: env["sinatra.error.params"],
       env: env["sinatra.error"],
       message: env["sinatra.error"].message
-    } }.to_s)
+    } }
+    logger.error(message.to_s)
+    halt 422, { "Content-Type" => "application/json" }, message.to_json
   end
 end
