@@ -143,11 +143,12 @@ module InteractiveBrokersGenerator
       property_copy_sentences = ib_class.zipped_ruby_and_java_properties
                                         .collect do |ruby_property, java_field|
         <<-RUBY
-          ruby_object.#{ruby_property} = #{java_field.name}().to_ruby
+          ruby_object.#{ruby_property} = #{java_field.name}().to_ruby if respond_to?(:#{java_field.name})
         RUBY
       end
 
       <<-RUBY
+        # Java api is inconsistent so we sadly must to check if we have the setter for each method
         def to_ruby
           ruby_object = #{namespace_list.join('::')}::#{ib_class.name}.new
           #{property_copy_sentences.join('')}
