@@ -27,6 +27,8 @@ It is the client's responsibility to provide uniq ID. Unfortunately, embedded IB
 
 ## Current progress
 
+Gem use 976.01 API version
+
 *NOTE*: All functions naming is from Java official API doc. URI paths for corresponding
 functions will be the same.
 
@@ -56,9 +58,9 @@ functions will be the same.
 ### Functions with ID
 
 * [x] reqContractDetails
+* [x] placeOrder
 * [ ] reqMktData
 * [ ] cancelMktData
-* [ ] placeOrder
 * [ ] cancelOrder
 * [ ] reqExecutions
 * [ ] reqMktDepth

@@ -75,13 +75,13 @@ module InteractiveBrokersProxy
     def start_gw_message_processing_thread
       reader
 
-      Thread.new do
+      Concurrent::Channel.go do
         while client_socket.isConnected
           signal.waitForSignal
           begin
             reader.processMsgs
           rescue StandardError => e
-            logger.error "Error while processing message from gateway: #{e}"
+            logger.error "Error while processing message from gateway reader: #{e}"
           end
         end
       end
@@ -99,7 +99,5 @@ module InteractiveBrokersProxy
     def connect
       client_socket.eConnect(gateway_host, gateway_port, client_id)
     end
-
-    def default_logger; end
   end
 end

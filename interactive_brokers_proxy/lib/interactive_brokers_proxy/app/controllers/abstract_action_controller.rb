@@ -40,6 +40,8 @@ class AbstractActionController < ApplicationController
     end
   end
 
+  private
+
   attr_accessor :action_name
 
   # Creates channel with a callback, which should clean up the registry after body processing

@@ -22,15 +22,31 @@ module InteractiveBrokersProxy
 
     delegate :logger, to: :proxy_service
 
-    def contractDetails(req_id, contract_details)
+    def contractDetails(*args)
       super
-      InteractiveBrokersProxy.req_id_registry[req_id] << json(contract_details)
+      InteractiveBrokersProxy.req_id_registry[args.first] << json(*args)
     end
 
-    def contractDetailsEnd(req_id)
+    def contractDetailsEnd(id)
       super
-      InteractiveBrokersProxy.req_id_registry.unregister(req_id)&.close
+      InteractiveBrokersProxy.req_id_registry.unregister(id)&.close
     end
+
+    def orderStatus(*args)
+      super
+      InteractiveBrokersProxy.order_id_registry[args.first] << json(*args)
+    end
+
+    # this 2 fuckers must me in common group, cos we can not know order id until it is done
+    # def openOrder(*args)
+    #   super
+    #   InteractiveBrokersProxy.order_id_registry[args.first] << json(*args)
+    # end
+    #
+    # def openOrderEnd(id)
+    #   super
+    #   InteractiveBrokersProxy.order_id_registry.unregister(id)&.close
+    # end
 
     # rubocop:disable Metrics/MethodLength
     def error(req_id, error_code = nil, error_message = nil)
@@ -44,14 +60,20 @@ module InteractiveBrokersProxy
           details_url: ERRORS_DETAILS_URL
         }
       }
+      logger.error payload
       InteractiveBrokersProxy.req_id_registry[req_id] << json(payload) if req_id.is_a?(Integer) && req_id.positive?
     ensure
       InteractiveBrokersProxy.req_id_registry[req_id].try(:close) if req_id.is_a?(Integer) && req_id.positive?
     end
     # rubocop:enable Metrics/MethodLength
 
-    def json(payload)
-      JSON.dump(payload.to_ruby.to_h.as_json)
+    def nextValidId(id)
+      InteractiveBrokersProxy.common_registry[:reqIds] << id
+    end
+
+    def json(*payload)
+      prepare = payload.map(&:to_ruby).map(&:as_json)
+      JSON.dump(prepare.size <= 1 ? prepare.first : prepare)
     end
 
     module Stubs

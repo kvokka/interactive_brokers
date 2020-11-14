@@ -31,6 +31,12 @@ on default settings
 * LOG_LEVEL = 'info'
 * DEFAULT_TIMEOUT = 5
 
+For example we can run specs to TWS Gateway on remote host with
+
+```bash
+GATEWAY_HOST=172.16.6.132 GATEWAY_PORT=7497 bundle exec rake features
+```
+
 ## Testing
 
 * `bundle exec rake spec`

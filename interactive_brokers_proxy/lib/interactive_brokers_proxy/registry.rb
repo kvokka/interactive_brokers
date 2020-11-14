@@ -19,6 +19,10 @@ module InteractiveBrokersProxy
       super(*args)
     end
 
+    def find_or_register(key, value = nil)
+      self[key] || register(key, value)
+    end
+
     # to maintain uniqueness all data settings should be done with this method
     def register(key, value = nil)
       unless key.is_a? key_class

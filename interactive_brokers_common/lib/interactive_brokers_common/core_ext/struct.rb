@@ -3,10 +3,6 @@
 module InteractiveBrokersCommon
   module CoreExt
     module Struct
-      def attributes
-        new.to_h.keys
-      end
-
       def to_ib
         raise NotImplementedError, "Struct must be parsed trough corresponding parser instead"
       end
@@ -18,4 +14,4 @@ module InteractiveBrokersCommon
   end
 end
 
-Struct.extend InteractiveBrokersCommon::CoreExt::Struct
+Struct.include InteractiveBrokersCommon::CoreExt::Struct

@@ -3,7 +3,7 @@
 ENV["RACK_ENV"] = "test"
 ENV["TEMP_PATH"] ||= "tmp"
 ENV["TEST_APP_PORT"] ||= "3334"
-ENV["DEFAULT_TIMEOUT"] = "1"
+ENV["DEFAULT_TIMEOUT"] ||= "5"
 ENV["LOG_LEVEL"] ||= "fatal" # I want to see clean tests report by default
 
 require "interactive_brokers_proxy"
@@ -14,9 +14,9 @@ require "amazing_print"
 Dir.mkdir(ENV["TEMP_PATH"]) unless Dir.exist?(ENV["TEMP_PATH"])
 
 module MyWorld
-  # next_valid_id from TWS sucks, use own replacement
-  def next_valid_id
-    File.open("#{ENV['TEMP_PATH']}/next_valid_id", "a+") do |f|
+  # next_id from TWS sucks, use it for requests ids
+  def next_id
+    File.open("#{ENV['TEMP_PATH']}/next_id", "a+") do |f|
       next_value = f.gets.to_i + 1
       f.truncate(0)
       f.puts(next_value)
