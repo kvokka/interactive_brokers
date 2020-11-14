@@ -4,6 +4,7 @@ ENV["RACK_ENV"] = "test"
 ENV["TEMP_PATH"] ||= "tmp"
 ENV["TEST_APP_PORT"] ||= "3334"
 ENV["DEFAULT_TIMEOUT"] = "1"
+ENV["LOG_LEVEL"] ||= "fatal" # I want to see clean tests report by default
 
 require "interactive_brokers_proxy"
 require "typhoeus"

@@ -13,5 +13,5 @@ Dir["#{__dir__}/controllers/**/*.rb"].sort.each { |f| require f }
 
 APP = (Sinatra::Router.new do
   mount StatusController
-  mount ReqContractDetailsController
+  mount ReqIdActionsController
 end)

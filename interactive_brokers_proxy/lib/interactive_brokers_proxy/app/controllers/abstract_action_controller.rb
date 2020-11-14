@@ -4,38 +4,43 @@ require_relative "application_controller"
 
 class AbstractActionController < ApplicationController
   class << self
-    # Should match with TWS API +EClient+ function name
-    def api_action_name
-      name.sub(/Controller$/, "").camelcase(:lower).to_sym
-    end
-
     # Should be overwritten
     # @return Registry
     def registry
-      raise NotImplementedError, "replace with Registry in abstract controller"
+      raise NotImplementedError, "replace with Registry instance"
     end
 
-    # Produce arguments converter for this method
-    def converter
-      @converter ||= InteractiveBrokersProxy::JavaMethodDynamicConverter.new(api_action_name)
+    # Produce arguments converter for this action
+    # Storing all the convertors on the class level helps to calculate them only once
+    def converter(action_name)
+      return @converter[action_name] if defined? @converter
+
+      @converter ||= Hash.new do |hash, key|
+        hash[key] = InteractiveBrokersProxy::JavaMethodDynamicConverter.new(action_name)
+      end
+      @converter[action_name]
     end
 
     # All supported methods are stored in +InteractiveBrokersProxy.supported_methods_registry+
     # for easier access
-    def inject_in_supported_methods_registry
-      InteractiveBrokersProxy.supported_methods_registry[registry.name] << api_action_name
+    def inject_in_supported_methods_registry(action_name)
+      InteractiveBrokersProxy.supported_methods_registry[registry.name] << action_name
     end
 
-    def action
-      inject_in_supported_methods_registry
-      post("/#{api_action_name}", provides: default_content_type) do
+    # Creates http action for java api method
+    def create_action(action_name)
+      inject_in_supported_methods_registry(action_name)
+      post("/#{action_name}", provides: default_content_type) do
+        self.action_name = action_name
         settings.registry.register(registry_key, new_channel).tap do |channel|
-          settings.converter.invoke_java_method(*api_action_args)
+          settings.converter(action_name).invoke_java_method(*api_action_args)
           body channel
         end
       end
     end
   end
+
+  attr_accessor :action_name
 
   # Creates channel with a callback, which should clean up the registry after body processing
   # (only in case that in the registry is the same channel)
@@ -84,8 +89,7 @@ class AbstractActionController < ApplicationController
   end
 
   def to_h
-    { class: self.class.name,
-      action: settings.api_action_name,
+    { action: action_name,
       registry: settings.registry.name,
       registry_key: registry_key }
   end

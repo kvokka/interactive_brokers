@@ -2,7 +2,7 @@
 
 require_relative "abstract_action_controller"
 
-class ReqIdActionController < AbstractActionController
+class ReqIdActionsController < AbstractActionController
   class << self
     def registry
       InteractiveBrokersProxy.req_id_registry
@@ -12,4 +12,6 @@ class ReqIdActionController < AbstractActionController
   def registry_key
     @registry_key ||= api_action_args.first.to_i
   end
+
+  create_action(:reqContractDetails)
 end
